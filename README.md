@@ -1,21 +1,27 @@
-# NH Interactive v2.0 Beta — Sprint A1
+# NH Interactive 2.0 Alpha
 
-This is the modular foundation build created from the confirmed working v1.5.4 single-file version.
+**English becomes an adventure.**
 
-## Sprint goal
+This is the clean-slate homepage foundation for NH Interactive 2.0.
 
-No visible redesign and no new feature. The working single-file website was separated into three safe runtime files:
+## Version
 
-- `css/main.css` — all existing styling
-- `data/portal-data.js` — the complete New Horizon vocabulary database
-- `js/app.js` — dashboard, language system, games, progress, and Adventure Mode
+`v0.0.1 — Homepage Foundation`
 
-The three book-cover images remain in the repository root to preserve the paths used by the working build.
+## Included
 
-## Upload to GitHub
+- Single-file homepage app (`index.html`)
+- English, Japanese, and bilingual selection
+- New dashboard design
+- New Horizon 1, 2, and 3 textbook cards
+- Ultimate Adventure preview
+- Responsive tablet and mobile layout
+- Local language preference
 
-Upload everything inside this package and preserve the `css`, `data`, and `js` folders.
+## Not included yet
 
-Suggested commit message:
+The textbook rooms, vocabulary engine, games, and playable quest system will be added one verified build at a time.
 
-`Add NH Interactive v2.0 Beta Sprint A1 modular foundation`
+## GitHub Pages
+
+Upload all five files to the repository root and deploy from `main` / `(root)`.
