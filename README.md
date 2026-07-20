@@ -1,23 +1,20 @@
-# NH Interactive v1.6.0 — Adventure Update Phase 1
+# NH Interactive v1.7.0 — Smart Sentences
 
-Built from the confirmed working v1.5.4 single-file version.
+This release upgrades **New Horizon 1 Unit 1**.
 
-## New Adventure structure
+## New
+- Natural English example sentences on flashcards
+- Japanese translations for the example sentences
+- Usage tips for selected words and expressions
+- Context-based Fill in the Blank questions
+- All 45 NH1 Unit 1 vocabulary entries enriched
 
-- Homepage **Ultimate Adventure** uses mixed vocabulary from New Horizon 1, 2, and 3.
-- Each textbook page includes a separate grade-specific Adventure.
-- Grade adventures let students choose any combination of units.
-- Stage 1: 10 questions
-- Stage 2: 15 questions
-- Stage 3: 20 questions
-- Boss Stage: 25 questions
-- Every stage begins with 7 lives.
-- Ultimate and grade-specific progress are saved separately.
+## Preserved
+All previous dashboard, language, textbook, game, progress, and Adventure features remain in the same single-file website.
 
-## GitHub upload
-
-Upload all five files to the beta repository root and replace the current files.
+## GitHub
+Upload every file in this folder to the beta repository root and replace the current files.
 
 Suggested commit message:
 
-`Add Adventure Update Phase 1 with unit selection`
+`Add NH1 Unit 1 smart flashcards and fill-in-the-blank sentences`
