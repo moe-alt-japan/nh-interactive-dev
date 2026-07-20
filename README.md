@@ -1,12 +1,23 @@
-# NH Interactive v1.5.4 — Single-file Recovery Build
+# NH Interactive v1.6.0 — Adventure Update Phase 1
 
-This recovery release places all CSS, vocabulary data, interface code, Adventure Mode, and battle logic directly inside `index.html`.
+Built from the confirmed working v1.5.4 single-file version.
 
-## Upload instructions
-1. Delete the old `index.html`, `script.js`, `style.css`, and `data.js` from the GitHub repository root.
-2. Upload the five files in this package to the repository root.
-3. Commit the changes.
-4. Wait for GitHub Pages deployment to finish.
-5. Open the site and press Ctrl+F5.
+## New Adventure structure
 
-You should see `v1.5.4` beside “Learn. Play. Improve.” in the header. This confirms the correct build is live.
+- Homepage **Ultimate Adventure** uses mixed vocabulary from New Horizon 1, 2, and 3.
+- Each textbook page includes a separate grade-specific Adventure.
+- Grade adventures let students choose any combination of units.
+- Stage 1: 10 questions
+- Stage 2: 15 questions
+- Stage 3: 20 questions
+- Boss Stage: 25 questions
+- Every stage begins with 7 lives.
+- Ultimate and grade-specific progress are saved separately.
+
+## GitHub upload
+
+Upload all five files to the beta repository root and replace the current files.
+
+Suggested commit message:
+
+`Add Adventure Update Phase 1 with unit selection`

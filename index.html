@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>NH Interactive v1.5.4</title>
+  <title>NH Interactive v1.6.0</title>
   <style>
 :root{
   --bg:#eef7ff;--card:#fff;--text:#14314b;--muted:#6f879e;--line:#d1e1ef;
@@ -164,6 +164,9 @@ body.dark .dashboard-hero{background:linear-gradient(135deg,#223d5d,#3a3157);col
 .world-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.world-card{position:relative;border:0;border-radius:25px;padding:26px;text-align:left;min-height:205px;cursor:pointer;color:#172130;box-shadow:var(--shadow);overflow:hidden;transition:.2s}.world-card:hover{transform:translateY(-5px)}.world-card.locked{filter:grayscale(.8);opacity:.65;cursor:not-allowed}.world-card .world-icon{font-size:4rem}.world-card h2{margin:8px 0 5px;font-size:1.8rem}.world-card p{margin:0;max-width:30ch}.world-progress{margin-top:18px;height:10px;background:rgba(255,255,255,.55);border-radius:99px;overflow:hidden}.world-progress i{display:block;height:100%;background:#243b63}.world-school{background:linear-gradient(135deg,#d7edff,#9fd4ff)}.world-forest{background:linear-gradient(135deg,#dbf6d7,#9ae18f)}.world-castle{background:linear-gradient(135deg,#ffe0e5,#ff9fb0)}
 .stage-panel,.battle-panel{margin-top:24px;background:var(--card);border:1px solid var(--line);border-radius:25px;padding:26px;box-shadow:var(--shadow)}.stage-panel-head{display:flex;justify-content:space-between;gap:20px;align-items:start}.stage-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}.stage-card{border:2px solid var(--line);background:var(--bg);color:var(--text);border-radius:20px;padding:22px 12px;text-align:center;cursor:pointer}.stage-card.locked{opacity:.5;cursor:not-allowed}.stage-card.complete{border-color:#54bd76}.stage-icon{font-size:2.4rem}.stage-card h3{margin:8px 0 3px}.boss-stage{background:linear-gradient(135deg,#fff2c7,#ffd36e);color:#342710}
 .battle-panel{text-align:center;max-width:850px;margin:24px auto}.boss-art{font-size:6rem;animation:bossFloat 1.8s ease-in-out infinite}.battle-bars{display:grid;grid-template-columns:1fr 1fr;gap:18px;text-align:left;margin:20px 0}.hp-track{height:16px;background:#e1e7ed;border-radius:99px;overflow:hidden}.hp-track i{display:block;height:100%;width:100%;background:#55c778;transition:.35s}.hp-track.enemy i{background:#ef6262}.battle-hint{color:var(--muted)}@keyframes bossFloat{50%{transform:translateY(-8px)}}
+
+.quest-setup{margin-top:24px;background:var(--card);border:1px solid var(--line);border-radius:25px;padding:26px;box-shadow:var(--shadow)}
+.unit-select-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:20px 0}.unit-check{display:flex;align-items:center;gap:10px;background:var(--bg);border:2px solid var(--line);border-radius:16px;padding:14px;cursor:pointer;font-weight:800}.unit-check:has(input:checked){border-color:var(--brand);background:var(--soft)}.unit-check input{width:20px;height:20px}.quest-summary{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0}.quest-summary span{background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-weight:800}.grade-adventure-card{grid-column:1/-1;background:linear-gradient(135deg,#6c5ce7,#35a7ff);color:#fff;border:0}.grade-adventure-card p{color:#eef6ff}.battle-status{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;font-weight:900;margin:10px 0 18px}.life-display{letter-spacing:3px}.question-count{color:var(--brand)}
 @media(max-width:900px){.world-grid{grid-template-columns:1fr}.stage-grid{grid-template-columns:1fr 1fr}.adventure-hero{align-items:flex-start}}@media(max-width:560px){.stage-grid,.battle-bars{grid-template-columns:1fr}.dashboard-actions{align-items:stretch}.dashboard-actions button{width:100%}}
 
 </style>
@@ -200,7 +203,7 @@ body.dark .dashboard-hero{background:linear-gradient(135deg,#223d5d,#3a3157);col
 <header class="topbar">
   <button id="logoBtn" class="logo-btn">
     <span class="logo-icon">📚</span>
-    <span><strong>NH Interactive</strong><small>Learn. Play. Improve. · v1.5.4</small></span>
+    <span><strong>NH Interactive</strong><small>Learn. Play. Improve. · v1.6.0</small></span>
   </button>
   <div class="top-actions">
     <span class="pill">⭐ <b id="xpValue">0</b> XP</span>
@@ -222,7 +225,7 @@ body.dark .dashboard-hero{background:linear-gradient(135deg,#223d5d,#3a3157);col
       <div class="dashboard-actions">
         <button id="continueBtn" class="primary-btn">▶ Continue Learning</button>
         <button id="browseBooksBtn" class="secondary-btn">📚 Browse Textbooks</button>
-        <button id="adventureBtn" class="adventure-btn">🗺️ Adventure Mode</button>
+        <button id="adventureBtn" class="adventure-btn">🌍 Ultimate Adventure</button>
       </div>
     </div>
     <div class="level-orb"><span>LEVEL</span><b id="dashboardLevel">1</b><small id="dashboardXP">0 XP</small></div>
@@ -282,12 +285,18 @@ body.dark .dashboard-hero{background:linear-gradient(135deg,#223d5d,#3a3157);col
     <div class="adventure-wallet">💰 <b id="coinValue">0</b> Coins</div>
   </div>
   <div id="worldGrid" class="world-grid"></div>
+  <section id="questSetupPanel" class="quest-setup hidden">
+    <div class="stage-panel-head"><div><p id="questSetupLabel" class="eyebrow"></p><h2 id="questSetupTitle">Choose Your Units</h2><p>Select the units you want to include in this quest.</p></div><button id="cancelQuestSetupBtn" class="secondary-btn">← Back</button></div>
+    <div id="unitSelectGrid" class="unit-select-grid"></div>
+    <div class="quest-summary"><span id="selectedUnitCount">0 units selected</span><span id="selectedWordCount">0 vocabulary words</span></div>
+    <button id="startGradeQuestBtn" class="primary-btn">⚔ Continue to Stages</button>
+  </section>
   <section id="stagePanel" class="stage-panel hidden">
     <div class="stage-panel-head"><div><p id="worldLabel" class="eyebrow"></p><h2 id="worldTitle"></h2><p id="worldDescription"></p></div><button id="closeWorldBtn" class="secondary-btn">← Worlds</button></div>
     <div id="stageGrid" class="stage-grid"></div>
   </section>
   <section id="battlePanel" class="battle-panel hidden">
-    <div class="boss-art" id="bossArt">🐉</div><p id="battleStageLabel" class="eyebrow"></p><h2 id="battleTitle">Vocabulary Battle</h2>
+    <div class="boss-art" id="bossArt">🐉</div><p id="battleStageLabel" class="eyebrow"></p><h2 id="battleTitle">Vocabulary Battle</h2><div class="battle-status"><span id="battleQuestionCount" class="question-count"></span><span id="battleLives" class="life-display"></span></div>
     <div class="battle-bars"><div><span>You</span><div class="hp-track"><i id="playerHP"></i></div></div><div><span id="enemyName">Enemy</span><div class="hp-track enemy"><i id="enemyHP"></i></div></div></div>
     <p class="battle-hint">Choose the correct English word.</p><h2 id="battlePrompt"></h2><div id="battleChoices" class="choice-grid"></div><p id="battleFeedback" class="feedback"></p><button id="battleExitBtn" class="secondary-btn">Exit Battle / バトルをやめる</button>
   </section>
@@ -514,6 +523,11 @@ function openGrade(g){
   $("gradeLabel").textContent=d.label.toUpperCase();
   $("gradeTitle").textContent=d.title;
   $("unitGrid").innerHTML="";
+  const adventureCard=document.createElement("button");
+  adventureCard.className="unit-card grade-adventure-card";
+  adventureCard.innerHTML=`<span class="badge" style="color:#fff">GRADE QUEST</span><h3>⚔ ${d.label} Adventure</h3><p>Choose the units you want to practice before starting your quest.</p>`;
+  adventureCard.onclick=()=>openGradeAdventure(g);
+  $("unitGrid").appendChild(adventureCard);
   for(let i=1;i<=d.unitCount;i++){
     const u=d.units[String(i)];
     const b=document.createElement("button");
@@ -729,99 +743,36 @@ document.querySelectorAll(".language-option").forEach(b=>b.onclick=()=>chooseLan
 if(!interfaceLanguage)$("languageWelcome").classList.remove("hidden");
 applyInterfaceLanguage();
 
-/* v1.5 Adventure Mode */
+/* Adventure Update Phase 1 */
 let adventureCoins=Number(localStorage.getItem("adventureCoins")||0);
-let adventureProgress=JSON.parse(localStorage.getItem("adventureProgress")||'{"nh1":0,"nh2":0,"nh3":0}');
-let activeWorld=null,battleWords=[],battleIndex=0,playerHealth=100,enemyHealth=100,battleIsBoss=false;
+let adventureProgress=JSON.parse(localStorage.getItem("adventureProgressV2")||'{"ultimate":0,"nh1":0,"nh2":0,"nh3":0}');
+let activeWorld=null,selectedAdventureUnits=[],battleWords=[],battleIndex=0,playerLives=7,enemyHealth=0,battleIsBoss=false;
+const STAGE_QUESTION_COUNTS={1:10,2:15,3:20,4:25};
 const ADVENTURE_WORLDS=[
-  {id:"nh1",icon:"🏫",name:"School World",ja:"スクールワールド",desc:"Begin your journey with New Horizon 1.",className:"world-school",enemy:"Word Slime",boss:"School Dragon",bossIcon:"🐲"},
-  {id:"nh2",icon:"🌳",name:"Forest World",ja:"フォレストワールド",desc:"Explore New Horizon 2 vocabulary.",className:"world-forest",enemy:"Forest Goblin",boss:"Forest Guardian",bossIcon:"🦖"},
-  {id:"nh3",icon:"🏰",name:"Castle World",ja:"キャッスルワールド",desc:"Master New Horizon 3 and conquer the castle.",className:"world-castle",enemy:"Castle Knight",boss:"Vocabulary Dragon",bossIcon:"🐉"}
+{id:"ultimate",icon:"🌍",name:"Ultimate Adventure",ja:"全学年チャレンジ",desc:"The hardest quest: random vocabulary from Grades 7, 8, and 9.",className:"world-castle",enemy:"Ultimate Challenger",boss:"Grand Vocabulary Dragon",bossIcon:"🐉"},
+{id:"nh1",icon:"🏫",name:"Grade 7 Adventure",ja:"1年生アドベンチャー",desc:"Practice selected New Horizon 1 units.",className:"world-school",enemy:"Word Slime",boss:"School Dragon",bossIcon:"🐲"},
+{id:"nh2",icon:"🌳",name:"Grade 8 Adventure",ja:"2年生アドベンチャー",desc:"Practice selected New Horizon 2 units.",className:"world-forest",enemy:"Forest Goblin",boss:"Forest Guardian",bossIcon:"🦖"},
+{id:"nh3",icon:"🏰",name:"Grade 9 Adventure",ja:"3年生アドベンチャー",desc:"Practice selected New Horizon 3 units.",className:"world-castle",enemy:"Castle Knight",boss:"Vocabulary Dragon",bossIcon:"🐉"}
 ];
-function saveAdventure(){localStorage.setItem("adventureCoins",adventureCoins);localStorage.setItem("adventureProgress",JSON.stringify(adventureProgress));}
-function getWorldWords(id){const d=PORTAL_DATA[id];return Object.values(d.units||{}).flatMap(u=>u.words||[]).map(W);}
-function renderAdventure(){
-  $("coinValue").textContent=adventureCoins;
-  $("worldGrid").innerHTML="";
-  ADVENTURE_WORLDS.forEach((w,i)=>{
-    const unlocked=i===0||adventureProgress[ADVENTURE_WORLDS[i-1].id]>=4;
-    const card=document.createElement("button");card.className=`world-card ${w.className}${unlocked?"":" locked"}`;
-    card.innerHTML=`<div class="world-icon">${unlocked?w.icon:"🔒"}</div><h2>${w.name}</h2><b>${w.ja}</b><p>${w.desc}</p><div class="world-progress"><i style="width:${Math.min(100,(adventureProgress[w.id]||0)/4*100)}%"></i></div><small>${adventureProgress[w.id]||0} / 4 stages cleared</small>`;
-    if(unlocked)card.onclick=()=>openAdventureWorld(w.id);$("worldGrid").appendChild(card);
-  });
-}
-function openAdventure(){showView("adventureView");$("stagePanel").classList.add("hidden");$("battlePanel").classList.add("hidden");renderAdventure();}
-function openAdventureWorld(id){activeWorld=id;const w=ADVENTURE_WORLDS.find(x=>x.id===id);$("worldGrid").classList.add("hidden");$("stagePanel").classList.remove("hidden");$("worldLabel").textContent=`${PORTAL_DATA[id].title} · ADVENTURE`;$("worldTitle").textContent=`${w.icon} ${w.name} / ${w.ja}`;$("worldDescription").textContent=w.desc;renderStages();}
-function renderStages(){const cleared=adventureProgress[activeWorld]||0;$("stageGrid").innerHTML="";[1,2,3,4].forEach(n=>{const boss=n===4,unlocked=n<=cleared+1,complete=n<=cleared;const b=document.createElement("button");b.className=`stage-card${boss?" boss-stage":""}${unlocked?"":" locked"}${complete?" complete":""}`;b.innerHTML=`<div class="stage-icon">${complete?"✅":boss?"🐉":"⭐"}</div><h3>${boss?"Boss Battle":`Stage ${n}`}</h3><small>${boss?"ボスバトル":`ステージ ${n}`}</small>`;if(unlocked)b.onclick=()=>startAdventureBattle(n,boss);$("stageGrid").appendChild(b);});}
-function startAdventureBattle(stage,boss){
-  battleIsBoss=Boolean(boss);
-  battleIndex=0;
-  playerHealth=100;
-  enemyHealth=battleIsBoss?150:100;
-  const pool=shuffle(getWorldWords(activeWorld));
-  battleWords=pool.slice(0,battleIsBoss?10:5);
-  $("stagePanel").classList.add("hidden");
-  $("battlePanel").classList.remove("hidden");
-  const w=ADVENTURE_WORLDS.find(x=>x.id===activeWorld);
-  $("bossArt").textContent=battleIsBoss?w.bossIcon:"👾";
-  $("enemyName").textContent=battleIsBoss?w.boss:w.enemy;
-  $("battleStageLabel").textContent=battleIsBoss?"FINAL BOSS / 最終ボス":`STAGE ${stage} / ステージ ${stage}`;
-  $("battleTitle").textContent=battleIsBoss?`${w.boss} Battle`:`${w.enemy} Battle`;
-  $("battlePanel").dataset.stage=String(stage);
-  updateBattleBars();
-  renderBattleQuestion();
-}
-function updateBattleBars(){
-  const maxEnemy=battleIsBoss?150:100;
-  $("playerHP").style.width=`${Math.max(0,Math.min(100,playerHealth))}%`;
-  $("enemyHP").style.width=`${Math.max(0,Math.min(100,(enemyHealth/maxEnemy)*100))}%`;
-}
-function renderBattleQuestion(){
-  if(enemyHealth<=0){finishBattle(true);return;}
-  if(playerHealth<=0){finishBattle(false);return;}
-  if(battleIndex>=battleWords.length){finishBattle(enemyHealth<=0);return;}
-  const current=battleWords[battleIndex];
-  const distractors=shuffle(getWorldWords(activeWorld).filter(x=>x.english!==current.english)).slice(0,3);
-  $("battlePrompt").textContent=current.japanese;
-  $("battleFeedback").textContent=`Question ${battleIndex+1} / ${battleWords.length}`;
-  $("battleChoices").innerHTML="";
-  shuffle([current,...distractors]).forEach(c=>{
-    const b=document.createElement("button");
-    b.className="choice";
-    b.textContent=c.english;
-    b.onclick=()=>answerBattle(b,c.english===current.english,current);
-    $("battleChoices").appendChild(b);
-  });
-}
-function answerBattle(btn,correct,word){
-  const buttons=[...document.querySelectorAll("#battleChoices .choice")];
-  buttons.forEach(b=>b.disabled=true);
-  if(correct){
-    btn.classList.add("correct");
-    enemyHealth=Math.max(0,enemyHealth-(battleIsBoss?18:25));
-    $("battleFeedback").textContent=battleIsBoss?"⚔️ Critical Hit!":"⚔️ Great attack!";
-  }else{
-    btn.classList.add("wrong");
-    const right=buttons.find(b=>norm(b.textContent)===norm(word.english));
-    if(right)right.classList.add("correct");
-    playerHealth=Math.max(0,playerHealth-25);
-    $("battleFeedback").textContent=`💥 The answer was ${word.english}.`;
-  }
-  battleIndex++;
-  updateBattleBars();
-  try{
-    if(correct){addXP(10);markStudied(word);clearWrongWord(word);}
-    else markWrong(word);
-  }catch(error){console.error("Battle stats error:",error);}
-  setTimeout(()=>{
-    if(enemyHealth<=0)finishBattle(true);
-    else if(playerHealth<=0)finishBattle(false);
-    else renderBattleQuestion();
-  },850);
-}
-function finishBattle(win){if(win){const stage=Number($("battlePanel").dataset.stage),reward=battleIsBoss?100:30;adventureCoins+=reward;adventureProgress[activeWorld]=Math.max(adventureProgress[activeWorld]||0,stage);saveAdventure();$("battlePrompt").textContent=battleIsBoss?"🏆 BOSS DEFEATED!":"🎉 STAGE CLEAR!";$("battleChoices").innerHTML=`<button class="primary-btn" id="battleContinue">Collect ${reward} coins and continue</button>`;$("battleFeedback").textContent=`You earned ${reward} coins! / ${reward}コインをゲット！`;$ ("battleContinue").onclick=()=>{renderAdventure();openAdventureWorld(activeWorld)};}else{$("battlePrompt").textContent="Try Again! / もう一度挑戦！";$("battleChoices").innerHTML='<button class="primary-btn" id="battleRetry">Retry Battle</button>';$("battleFeedback").textContent="Review the words and defeat the enemy next time.";$ ("battleRetry").onclick=()=>startAdventureBattle(Number($("battlePanel").dataset.stage),battleIsBoss);}}
-$("adventureBtn").onclick=openAdventure;$("backAdventureHomeBtn").onclick=()=>{showView("homeView");$("worldGrid").classList.remove("hidden")};$("closeWorldBtn").onclick=()=>{$("stagePanel").classList.add("hidden");$("worldGrid").classList.remove("hidden");renderAdventure()};$("battleExitBtn").onclick=()=>{openAdventureWorld(activeWorld)};
+function saveAdventure(){localStorage.setItem("adventureCoins",adventureCoins);localStorage.setItem("adventureProgressV2",JSON.stringify(adventureProgress));}
+function getUnitWords(gradeId,unitNumbers){const d=PORTAL_DATA[gradeId];return unitNumbers.flatMap(n=>(d.units[String(n)]?.words||[])).map(W);}
+function getAdventurePool(){if(activeWorld==="ultimate")return ["nh1","nh2","nh3"].flatMap(id=>Object.values(PORTAL_DATA[id].units||{}).flatMap(u=>u.words||[])).map(W);return getUnitWords(activeWorld,selectedAdventureUnits);}
+function renderAdventure(){$("coinValue").textContent=adventureCoins;$("worldGrid").innerHTML="";const w=ADVENTURE_WORLDS[0],card=document.createElement("button");card.className=`world-card ${w.className}`;card.innerHTML=`<div class="world-icon">${w.icon}</div><h2>${w.name}</h2><b>${w.ja}</b><p>${w.desc}</p><div class="world-progress"><i style="width:${Math.min(100,(adventureProgress.ultimate||0)/4*100)}%"></i></div><small>${adventureProgress.ultimate||0} / 4 stages cleared · Grades 7–9 mixed</small>`;card.onclick=openUltimateAdventure;$("worldGrid").appendChild(card);}
+function resetAdventurePanels(){["questSetupPanel","stagePanel","battlePanel"].forEach(id=>$(id).classList.add("hidden"));$("worldGrid").classList.remove("hidden");}
+function openAdventure(){activeWorld="ultimate";selectedAdventureUnits=[];showView("adventureView");resetAdventurePanels();renderAdventure();}
+function openUltimateAdventure(){activeWorld="ultimate";selectedAdventureUnits=[];$("worldGrid").classList.add("hidden");$("stagePanel").classList.remove("hidden");const w=ADVENTURE_WORLDS[0];$("worldLabel").textContent="GRADES 7–9 · VERY HARD";$("worldTitle").textContent=`${w.icon} ${w.name} / ${w.ja}`;$("worldDescription").textContent=w.desc;renderStages();}
+function openGradeAdventure(id){activeWorld=id;selectedAdventureUnits=[];showView("adventureView");resetAdventurePanels();$("worldGrid").classList.add("hidden");$("questSetupPanel").classList.remove("hidden");const d=PORTAL_DATA[id];$("questSetupLabel").textContent=`${d.title} · CUSTOM QUEST`;$("questSetupTitle").textContent=`⚔ ${d.label} Adventure — Choose Your Units`;$("unitSelectGrid").innerHTML="";Object.keys(d.units||{}).sort((a,b)=>Number(a)-Number(b)).forEach(n=>{const u=d.units[n],label=document.createElement("label");label.className="unit-check";label.innerHTML=`<input type="checkbox" value="${n}"><span>Unit ${n}<small style="display:block;color:var(--muted)">${u.subtitle||""}</small></span>`;label.querySelector("input").onchange=updateQuestSetupSummary;$("unitSelectGrid").appendChild(label);});updateQuestSetupSummary();}
+function updateQuestSetupSummary(){selectedAdventureUnits=[...document.querySelectorAll("#unitSelectGrid input:checked")].map(x=>Number(x.value));const count=selectedAdventureUnits.length,wordCount=count?getUnitWords(activeWorld,selectedAdventureUnits).length:0;$("selectedUnitCount").textContent=`${count} unit${count===1?"":"s"} selected`;$("selectedWordCount").textContent=`${wordCount} vocabulary words`;$("startGradeQuestBtn").disabled=count===0;}
+function continueGradeQuest(){if(!selectedAdventureUnits.length)return;$("questSetupPanel").classList.add("hidden");$("stagePanel").classList.remove("hidden");const w=ADVENTURE_WORLDS.find(x=>x.id===activeWorld);$("worldLabel").textContent=`${PORTAL_DATA[activeWorld].title} · UNITS ${selectedAdventureUnits.join(", ")}`;$("worldTitle").textContent=`${w.icon} ${w.name} / ${w.ja}`;$("worldDescription").textContent=`Vocabulary from Unit${selectedAdventureUnits.length>1?"s":""} ${selectedAdventureUnits.join(", ")} only.`;renderStages();}
+function renderStages(){const cleared=adventureProgress[activeWorld]||0;$("stageGrid").innerHTML="";[1,2,3,4].forEach(n=>{const boss=n===4,unlocked=n<=cleared+1,complete=n<=cleared,q=STAGE_QUESTION_COUNTS[n],b=document.createElement("button");b.className=`stage-card${boss?" boss-stage":""}${unlocked?"":" locked"}${complete?" complete":""}`;b.innerHTML=`<div class="stage-icon">${complete?"✅":boss?"🐉":"⭐"}</div><h3>${boss?"Boss Battle":`Stage ${n}`}</h3><small>${q} questions · 7 lives<br>${boss?"ボスバトル":`ステージ ${n}`}</small>`;if(unlocked)b.onclick=()=>startAdventureBattle(n,boss);$("stageGrid").appendChild(b);});}
+function startAdventureBattle(stage,boss){battleIsBoss=Boolean(boss);battleIndex=0;playerLives=7;const questionCount=STAGE_QUESTION_COUNTS[stage],pool=shuffle(getAdventurePool());if(!pool.length){toast("Please choose at least one unit.");return;}battleWords=Array.from({length:questionCount},(_,i)=>pool[i%pool.length]);enemyHealth=questionCount;$("stagePanel").classList.add("hidden");$("battlePanel").classList.remove("hidden");const w=ADVENTURE_WORLDS.find(x=>x.id===activeWorld);$("bossArt").textContent=battleIsBoss?w.bossIcon:"👾";$("enemyName").textContent=battleIsBoss?w.boss:w.enemy;$("battleStageLabel").textContent=battleIsBoss?`BOSS · ${questionCount} QUESTIONS`:`STAGE ${stage} · ${questionCount} QUESTIONS`;$("battleTitle").textContent=battleIsBoss?`${w.boss} Battle`:`${w.enemy} Battle`;$("battlePanel").dataset.stage=String(stage);updateBattleBars();renderBattleQuestion();}
+function updateBattleBars(){const total=battleWords.length||1;$("playerHP").style.width=`${Math.max(0,playerLives/7*100)}%`;$("enemyHP").style.width=`${Math.max(0,enemyHealth/total*100)}%`;$("battleLives").textContent=`Lives: ${"❤️".repeat(Math.max(0,playerLives))}${"🖤".repeat(Math.max(0,7-playerLives))}`;$("battleQuestionCount").textContent=`Question ${Math.min(battleIndex+1,total)} / ${total}`;}
+function renderBattleQuestion(){if(playerLives<=0){finishBattle(false);return;}if(battleIndex>=battleWords.length){finishBattle(true);return;}const current=battleWords[battleIndex],pool=getAdventurePool(),distractors=shuffle(pool.filter(x=>x.english!==current.english)).slice(0,3);$("battlePrompt").textContent=current.japanese;$("battleFeedback").textContent="Choose the correct English word.";$("battleChoices").innerHTML="";shuffle([current,...distractors]).forEach(c=>{const b=document.createElement("button");b.className="choice";b.textContent=c.english;b.onclick=()=>answerBattle(b,c.english===current.english,current);$("battleChoices").appendChild(b);});updateBattleBars();}
+function answerBattle(btn,correct,word){const buttons=[...document.querySelectorAll("#battleChoices .choice")];buttons.forEach(b=>b.disabled=true);enemyHealth=Math.max(0,enemyHealth-1);if(correct){btn.classList.add("correct");$("battleFeedback").textContent=battleIsBoss?"⚔️ Critical Hit!":"⚔️ Great attack!";}else{btn.classList.add("wrong");const right=buttons.find(b=>norm(b.textContent)===norm(word.english));if(right)right.classList.add("correct");playerLives=Math.max(0,playerLives-1);$("battleFeedback").textContent=`💥 The answer was ${word.english}.`;}battleIndex++;updateBattleBars();try{if(correct){addXP(10);markStudied(word);clearWrongWord(word);}else markWrong(word);}catch(error){console.error("Battle stats error:",error);}setTimeout(()=>{if(playerLives<=0)finishBattle(false);else if(battleIndex>=battleWords.length)finishBattle(true);else renderBattleQuestion();},800);}
+function finishBattle(win){if(win){const stage=Number($("battlePanel").dataset.stage),reward=battleIsBoss?150:stage*40;adventureCoins+=reward;adventureProgress[activeWorld]=Math.max(adventureProgress[activeWorld]||0,stage);saveAdventure();$("battlePrompt").textContent=battleIsBoss?"🏆 BOSS DEFEATED!":"🎉 STAGE CLEAR!";$("battleChoices").innerHTML=`<button class="primary-btn" id="battleContinue">Collect ${reward} coins and continue</button>`;$("battleFeedback").textContent=`You survived ${battleWords.length} questions with ${playerLives} lives left!`;$("battleContinue").onclick=()=>activeWorld==="ultimate"?openUltimateAdventure():continueGradeQuest();}else{$("battlePrompt").textContent="Game Over / ゲームオーバー";$("battleChoices").innerHTML='<button class="primary-btn" id="battleRetry">Retry Battle</button>';$("battleFeedback").textContent=`You used all 7 lives at question ${battleIndex}.`;$("battleRetry").onclick=()=>startAdventureBattle(Number($("battlePanel").dataset.stage),battleIsBoss);}}
+$("adventureBtn").onclick=openAdventure;$("backAdventureHomeBtn").onclick=()=>{showView("homeView");resetAdventurePanels()};$("closeWorldBtn").onclick=()=>{if(activeWorld==="ultimate"){resetAdventurePanels();renderAdventure();}else{$("stagePanel").classList.add("hidden");$("questSetupPanel").classList.remove("hidden");}};$("cancelQuestSetupBtn").onclick=()=>showView("unitsView");$("startGradeQuestBtn").onclick=continueGradeQuest;$("battleExitBtn").onclick=()=>activeWorld==="ultimate"?openUltimateAdventure():continueGradeQuest();
 renderAdventure();
+
 
 </script>
 </body>
