@@ -1,25 +1,18 @@
-# NH Interactive v1.8.0 — Complete NH1 Smart Sentence Build
+# NH Interactive v1.9.3 — NH2 Units 1–6
 
-Smart Sentence data included for NH1 Units 1–10.
+Unit 5 and Unit 6 foundation correction.
 
-Counts:
-- Unit 1: 45
-- Unit 2: 51
-- Unit 3: 42
-- Unit 4: 39
-- Unit 5: 46
-- Unit 6: 67
-- Unit 7: 56
-- Unit 8: 75
-- Unit 9: 46
-- Unit 10: 21
+Verified textbook lists used:
+- Unit 5: 46 entries
+- Unit 6: 83 entries
 
-Total entries represented: 488
+Important correction:
+The older website database had the first 34 Unit 6 words under Unit 6, while the
+"My School and School Life" and "A Glass of Milk" vocabulary was stored later in
+the NH2 data. This build reconstructs Unit 6 from the exact list supplied for
+the current textbook, then applies the Smart Sentences.
 
-Notes:
-- Unit 8 includes the Real Life English Scene 4 and additional music/concert vocabulary supplied with Unit 8.
-- The duplicate `tablet` item supplied for Unit 9 was normalized to one curriculum entry.
-- Grammar-sensitive past forms and expressions use contextual fill-in-the-blank prompts.
+Fill-in-the-Blank accepted-answer support remains enabled.
 
 Suggested commit:
-`Complete NH1 Units 6-10 smart sentence library`
+`Correct NH2 Unit 5-6 vocabulary and smart sentences`
