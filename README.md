@@ -1,17 +1,25 @@
-# NH Interactive v1.7.1 — Smart Sentences
+# NH Interactive v1.8.0 — Complete NH1 Smart Sentence Build
 
-Smart Sentence support is now complete for:
+Smart Sentence data included for NH1 Units 1–10.
 
-- New Horizon 1 Unit 1 — 45 entries
-- New Horizon 1 Unit 2 — 51 entries
+Counts:
+- Unit 1: 45
+- Unit 2: 51
+- Unit 3: 42
+- Unit 4: 39
+- Unit 5: 46
+- Unit 6: 67
+- Unit 7: 56
+- Unit 8: 75
+- Unit 9: 46
+- Unit 10: 21
 
-## Included
-- Natural English example sentences
-- Japanese sentence translations
-- Context-based Fill in the Blank questions
-- Usage tips where helpful
-- Existing dashboard, language, games, and Adventure Mode preserved
+Total entries represented: 488
 
-Suggested GitHub commit message:
+Notes:
+- Unit 8 includes the Real Life English Scene 4 and additional music/concert vocabulary supplied with Unit 8.
+- The duplicate `tablet` item supplied for Unit 9 was normalized to one curriculum entry.
+- Grammar-sensitive past forms and expressions use contextual fill-in-the-blank prompts.
 
-`Add NH1 Unit 2 smart sentences`
+Suggested commit:
+`Complete NH1 Units 6-10 smart sentence library`
