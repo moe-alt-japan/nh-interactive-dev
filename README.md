@@ -1,18 +1,6 @@
-# NH Interactive v1.9.3 — NH2 Units 1–6
-
-Unit 5 and Unit 6 foundation correction.
-
-Verified textbook lists used:
-- Unit 5: 46 entries
-- Unit 6: 83 entries
-
-Important correction:
-The older website database had the first 34 Unit 6 words under Unit 6, while the
-"My School and School Life" and "A Glass of Milk" vocabulary was stored later in
-the NH2 data. This build reconstructs Unit 6 from the exact list supplied for
-the current textbook, then applies the Smart Sentences.
-
-Fill-in-the-Blank accepted-answer support remains enabled.
-
-Suggested commit:
-`Correct NH2 Unit 5-6 vocabulary and smart sentences`
+# NH Interactive v1.9.8 — NH2 Unit 7
+Unit 7 rebuilt from the exact supplied list. There is no Unit 8.
+Total Unit 7 entries: 87.
+Includes Main Unit 7, Real Life English, and Let's Have a Discussion.
+Smart sentences, Japanese translations, fill-in-the-blank prompts, and accepted answers included.
+All v1.9.7 Adventure fixes are preserved.
