@@ -282,6 +282,7 @@ function saveAdventure(){localStorage.setItem("adventureCoins",adventureCoins);l
 function getWorldWords(id){const d=PORTAL_DATA[id];return Object.values(d.units||{}).flatMap(u=>u.words||[]).map(W);}
 function renderAdventure(){
   $("coinValue").textContent=adventureCoins;
+  $("avatarCoinValue").textContent=adventureCoins.toLocaleString();
   $("worldGrid").innerHTML="";
   ADVENTURE_WORLDS.forEach((w,i)=>{
     const unlocked=i===0||adventureProgress[ADVENTURE_WORLDS[i-1].id]>=4;
