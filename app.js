@@ -363,4 +363,11 @@ function answerBattle(btn,correct,word){
 function finishBattle(win){if(win){const stage=Number($("battlePanel").dataset.stage),reward=battleIsBoss?100:30;adventureCoins+=reward;adventureProgress[activeWorld]=Math.max(adventureProgress[activeWorld]||0,stage);saveAdventure();$("battlePrompt").textContent=battleIsBoss?"🏆 BOSS DEFEATED!":"🎉 STAGE CLEAR!";$("battleChoices").innerHTML=`<button class="primary-btn" id="battleContinue">Collect ${reward} coins and continue</button>`;$("battleFeedback").textContent=`You earned ${reward} coins! / ${reward}コインをゲット！`;$ ("battleContinue").onclick=()=>{renderAdventure();openAdventureWorld(activeWorld)};}else{$("battlePrompt").textContent="Try Again! / もう一度挑戦！";$("battleChoices").innerHTML='<button class="primary-btn" id="battleRetry">Retry Battle</button>';$("battleFeedback").textContent="Review the words and defeat the enemy next time.";$ ("battleRetry").onclick=()=>startAdventureBattle(Number($("battlePanel").dataset.stage),battleIsBoss);}}
 $("adventureBtn").onclick=openAdventure;$("backAdventureHomeBtn").onclick=()=>{showView("homeView");$("worldGrid").classList.remove("hidden")};$("closeWorldBtn").onclick=()=>{$("stagePanel").classList.add("hidden");$("worldGrid").classList.remove("hidden");renderAdventure()};$("battleExitBtn").onclick=()=>{openAdventureWorld(activeWorld)};
 renderAdventure();
+$("avatarBtn").onclick=()=>{
+  $("nhAvatarModal").classList.remove("hidden");
+};
+
+$("nhAvatarClose").onclick=()=>{
+  $("nhAvatarModal").classList.add("hidden");
+};
 
