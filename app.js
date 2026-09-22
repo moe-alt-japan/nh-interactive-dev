@@ -364,6 +364,7 @@ function finishBattle(win){if(win){const stage=Number($("battlePanel").dataset.s
 $("adventureBtn").onclick=openAdventure;$("backAdventureHomeBtn").onclick=()=>{showView("homeView");$("worldGrid").classList.remove("hidden")};$("closeWorldBtn").onclick=()=>{$("stagePanel").classList.add("hidden");$("worldGrid").classList.remove("hidden");renderAdventure()};$("battleExitBtn").onclick=()=>{openAdventureWorld(activeWorld)};
 renderAdventure();
 $("avatarBtn").onclick=()=>{
+  console.log("Avatar clicked:", $("nhAvatarModal"));
   $("nhAvatarModal").classList.remove("hidden");
 };
 
