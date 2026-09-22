@@ -154,7 +154,31 @@ body.dark .dashboard-hero{background:linear-gradient(135deg,#223d5d,#3a3157);col
 .textbook-heading{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:26px 0 20px}.textbook-heading p{color:var(--muted);margin:4px 0}
 @media(max-width:1000px){.dashboard-stat-grid{grid-template-columns:1fr 1fr}.dashboard-grid{grid-template-columns:1fr}.achievement-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:620px){.dashboard-hero{padding:24px;flex-direction:column;align-items:flex-start}.level-orb{width:130px;height:130px;align-self:center}.level-orb b{font-size:3rem}.dashboard-stat-grid{grid-template-columns:1fr}.achievement-grid{grid-template-columns:1fr}.dashboard-actions{width:100%}.dashboard-actions button{flex:1}.dashboard-panel{padding:17px}}
+/* Dashboard Avatar */
+.nh-dashboard-avatar{
+  width:220px;
+  height:280px;
+  flex:0 0 220px;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+}
 
+.nh-dashboard-avatar img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
+
+@media(max-width:620px){
+  .nh-dashboard-avatar{
+    width:160px;
+    height:210px;
+    flex-basis:160px;
+    align-self:center;
+  }
+}
 /* NH Avatar System */
 #nhAvatarModal{
   position:fixed;
@@ -340,6 +364,9 @@ body.dark .dashboard-hero{background:linear-gradient(135deg,#223d5d,#3a3157);col
 <main>
 <section id="homeView" class="view active">
   <div class="dashboard-hero">
+    <div id="nhHomeAvatar" class="nh-dashboard-avatar" aria-label="Current avatar">
+  <img id="nhHomeAvatarImage" src="boy free character.png" alt="Free Boy">
+</div>
     <div>
       <p class="eyebrow">YOUR LEARNING DASHBOARD</p>
       <h1 id="dashboardGreeting">Welcome back!</h1>
