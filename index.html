@@ -156,6 +156,7 @@ body.dark .dashboard-hero{background:linear-gradient(135deg,#223d5d,#3a3157);col
 @media(max-width:620px){.dashboard-hero{padding:24px;flex-direction:column;align-items:flex-start}.level-orb{width:130px;height:130px;align-self:center}.level-orb b{font-size:3rem}.dashboard-stat-grid{grid-template-columns:1fr}.achievement-grid{grid-template-columns:1fr}.dashboard-actions{width:100%}.dashboard-actions button{flex:1}.dashboard-panel{padding:17px}}
 /* Dashboard Avatar */
 .nh-dashboard-avatar{
+  position:relative;
   width:220px;
   height:280px;
   flex:0 0 220px;
@@ -169,6 +170,37 @@ body.dark .dashboard-hero{background:linear-gradient(135deg,#223d5d,#3a3157);col
   height:100%;
   object-fit:contain;
   display:block;
+}
+
+    #avatarSpeech{
+  position:absolute;
+  top:18px;
+  left:-55px;
+  min-width:145px;
+  max-width:175px;
+  padding:10px 14px;
+  background:var(--card);
+  color:var(--text);
+  border:2px solid #3b9cff;
+  border-radius:22px;
+  font-size:13px;
+  font-weight:800;
+  line-height:1.3;
+  text-align:center;
+  cursor:pointer;
+  box-shadow:var(--shadow);
+  z-index:2;
+}
+
+#avatarSpeech::after{
+  content:"";
+  position:absolute;
+  right:-10px;
+  top:50%;
+  transform:translateY(-50%);
+  border-width:8px 0 8px 10px;
+  border-style:solid;
+  border-color:transparent transparent transparent #3b9cff;
 }
 
 @media(max-width:620px){
@@ -599,6 +631,7 @@ body.dark .dashboard-hero{background:linear-gradient(135deg,#223d5d,#3a3157);col
   <div class="dashboard-hero">
     <div id="nhHomeAvatar" class="nh-dashboard-avatar" aria-label="Current avatar">
   <img id="nhHomeAvatarImage" src="boy free character.png" alt="Free Boy">
+      <button id="avatarSpeech" type="button">Let's learn English<br>and have fun! 😊</button>
 </div>
     <div>
       <p class="eyebrow">YOUR LEARNING DASHBOARD</p>
