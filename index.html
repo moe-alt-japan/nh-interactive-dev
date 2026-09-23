@@ -1769,7 +1769,45 @@ card.onclick = ()=>{
       </span>
     `;
 
+ card.style.cursor = "pointer";
+
+card.onclick = ()=>{
+  if(owned){
+    nhEquippedCharacter = character.id;
+    localStorage.setItem(NH_AVATAR_EQUIPPED_KEY, nhEquippedCharacter);
+
+    renderHomeAvatar();
+    renderCharacterGrid();
+    renderShop();
+    return;
+  }
+
+  if(adventureCoins < character.price){
+    alert(`You need ${character.price} coins to buy ${character.name}.`);
+    return;
+  }
+
+  const buy = confirm(`Buy ${character.name} for ${character.price} coins?`);
+  if(!buy) return;
+
+  adventureCoins -= character.price;
+  nhOwnedCharacters.push(character.id);
+
+  saveAdventure();
+  localStorage.setItem(
+    NH_AVATAR_OWNED_KEY,
+    JSON.stringify(nhOwnedCharacters)
+  );
+
+  renderShop();
+  renderInventory();
+
+  alert(`${character.name} purchased!`);
+};  
+    
     grid.appendChild(card);
+
+    
   });
 }
   
