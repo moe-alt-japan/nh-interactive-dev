@@ -1657,6 +1657,39 @@ card.onclick = ()=>{
       grid.appendChild(card);
     });
 }
+
+  function renderShop(){
+  const grid = $("nhShopGrid");
+  if(!grid) return;
+
+  grid.innerHTML = "";
+
+  $("nhShopCoinValue").textContent = adventureCoins;
+
+  NH_CHARACTERS.forEach(character=>{
+    const owned =
+      character.price === 0 ||
+      nhOwnedCharacters.includes(character.id);
+
+    const equipped =
+      nhEquippedCharacter === character.id;
+
+    const card = document.createElement("div");
+    card.className = "nh-shop-card";
+
+    card.innerHTML = `
+      <img src="${character.id}.png" alt="${character.name}">
+      <strong>${character.name}</strong>
+      <span class="nh-character-status">
+        ${equipped ? "✓ Equipped" :
+          owned ? "✓ Owned" :
+          "🪙 " + character.price}
+      </span>
+    `;
+
+    grid.appendChild(card);
+  });
+}
   
  $("inventoryBtn").onclick=()=>{
   renderInventory();
@@ -1668,6 +1701,7 @@ $("nhInventoryClose").onclick=()=>{
 
 
   $("shopBtn").onclick=()=>{
+    renderShop();
   $("nhShopCoinValue").textContent = adventureCoins;
   $("nhShopModal").classList.remove("hidden");
 };
