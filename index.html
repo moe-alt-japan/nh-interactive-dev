@@ -379,6 +379,121 @@ body.dark .dashboard-hero{background:linear-gradient(135deg,#223d5d,#3a3157);col
     grid-template-columns:repeat(2,1fr);
   }
 }
+
+    /* NH Shop System */
+#nhShopModal{
+  position:fixed;
+  inset:0;
+  z-index:10000;
+  background:rgba(13,31,49,.76);
+  backdrop-filter:blur(8px);
+  display:grid;
+  place-items:center;
+  padding:20px;
+}
+
+#nhShopModal.hidden{
+  display:none!important;
+}
+
+.nh-shop-box{
+  width:min(700px,92vw);
+  max-height:85vh;
+  background:var(--card);
+  color:var(--text);
+  border:1px solid var(--line);
+  border-radius:24px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+
+.nh-shop-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 22px;
+  border-bottom:1px solid var(--line);
+}
+
+.nh-shop-header h2{
+  margin:0;
+}
+
+.nh-shop-header small{
+  color:var(--muted);
+}
+
+#nhShopClose{
+  width:42px;
+  height:42px;
+  border:0;
+  border-radius:12px;
+  background:var(--soft);
+  color:var(--text);
+  font-size:22px;
+  cursor:pointer;
+}
+
+.nh-shop-body{
+  padding:24px;
+}
+
+.nh-shop-wallet{
+  background:var(--soft);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:12px 16px;
+  margin-bottom:18px;
+  font-weight:800;
+}
+
+.nh-shop-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-top:18px;
+  max-height:480px;
+  overflow-y:auto;
+  padding:4px;
+}
+
+.nh-shop-card{
+  border:2px solid var(--line);
+  background:var(--soft);
+  border-radius:18px;
+  padding:12px;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:7px;
+}
+
+.nh-shop-card img{
+  width:100%;
+  height:130px;
+  object-fit:contain;
+}
+
+.nh-shop-card strong{
+  color:var(--text);
+  font-size:14px;
+}
+
+.nh-shop-buy{
+  width:100%;
+  border:0;
+  border-radius:10px;
+  padding:8px;
+  cursor:pointer;
+  font-weight:800;
+}
+
+@media(max-width:620px){
+  .nh-shop-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
 /* v1.4.1 multilingual interface */
 .language-overlay{position:fixed;inset:0;z-index:9999;background:rgba(13,31,49,.76);backdrop-filter:blur(12px);display:grid;place-items:center;padding:20px}.language-overlay.hidden{display:none!important}.language-modal{position:relative;width:min(720px,100%);background:var(--card);border:1px solid var(--line);border-radius:30px;padding:34px;box-shadow:0 26px 80px rgba(0,0,0,.3);text-align:center}.language-logo{font-size:4rem}.language-modal h2{font-size:clamp(2rem,5vw,3.25rem);margin:8px 0}.language-modal h2 span{font-size:.62em;color:var(--muted)}.language-subtitle{color:var(--muted);font-size:1.08rem}.language-options{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}.language-option{position:relative;border:2px solid var(--line);background:var(--bg);color:var(--text);border-radius:22px;padding:22px 14px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:7px;transition:.18s}.language-option:hover,.language-option.active{border-color:var(--brand);transform:translateY(-3px);box-shadow:var(--shadow)}.language-option span{font-size:2.4rem}.language-option b{font-size:1.05rem}.language-option small{color:var(--muted)}.language-option.recommended:after{content:'★';position:absolute;right:10px;top:8px;color:#f0ad00}.modal-close{position:absolute;right:18px;top:14px;border:0;background:transparent;color:var(--text);font-size:2rem;cursor:pointer}.language-btn{min-width:44px}.bi-line{display:block;font-size:.76em;color:var(--muted);font-weight:650;margin-top:2px}.mode-btn .bi-line{color:inherit}.ja-only .en-part{display:none!important}.en-only .ja-part{display:none!important}@media(max-width:650px){.language-options{grid-template-columns:1fr}.language-modal{padding:24px}.language-option{flex-direction:row;justify-content:flex-start;text-align:left;padding:16px}.language-option span{font-size:2rem}.language-option small{margin-left:auto}}
 
@@ -776,7 +891,33 @@ body.dark .dashboard-hero{background:linear-gradient(135deg,#223d5d,#3a3157);col
   </div>
 </div>
 <!-- END NH INVENTORY SYSTEM -->  
+<!-- NH SHOP SYSTEM -->
+<div id="nhShopModal" class="hidden">
+  <div class="nh-shop-box">
 
+    <div class="nh-shop-header">
+      <div>
+        <h2>🛍️ Shop</h2>
+        <small>Character Shop / キャラクターショップ</small>
+      </div>
+
+      <button id="nhShopClose" type="button">×</button>
+    </div>
+
+    <div class="nh-shop-body">
+      <div class="nh-shop-wallet">
+        🪙 <b id="nhShopCoinValue">0</b> Coins
+      </div>
+
+      <p><strong>Characters</strong></p>
+      <small>キャラクター</small>
+
+      <div id="nhShopGrid" class="nh-shop-grid"></div>
+    </div>
+
+  </div>
+</div>
+<!-- END NH SHOP SYSTEM -->
 <footer>NH Interactive v1.9.8 · Smart Sentences · Made for classroom learning · Progress is saved on this device</footer>
 <div id="toast" class="toast"></div>
 <script>
@@ -1525,6 +1666,15 @@ $("nhInventoryClose").onclick=()=>{
   $("nhInventoryModal").classList.add("hidden");
 };
 
+
+  $("shopBtn").onclick=()=>{
+  $("nhShopCoinValue").textContent = adventureCoins;
+  $("nhShopModal").classList.remove("hidden");
+};
+
+$("nhShopClose").onclick=()=>{
+  $("nhShopModal").classList.add("hidden");
+};
 </script>
 </body>
 </html>
