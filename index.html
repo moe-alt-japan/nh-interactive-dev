@@ -1227,6 +1227,10 @@ function answerBattle(btn,correct,word){const buttons=[...document.querySelector
 function finishBattle(win){if(win){const stage=Number($("battlePanel").dataset.stage),reward=battleIsBoss?150:stage*40;adventureCoins+=reward;adventureProgress[activeWorld]=Math.max(adventureProgress[activeWorld]||0,stage);saveAdventure();$("battlePrompt").textContent=battleIsBoss?"🏆 BOSS DEFEATED!":"🎉 STAGE CLEAR!";$("battleChoices").innerHTML=`<button class="primary-btn" id="battleContinue">Collect ${reward} coins and continue</button>`;$("battleFeedback").textContent=`You survived ${battleWords.length} questions with ${playerLives} lives left!`;$("battleContinue").onclick=()=>activeWorld==="ultimate"?openUltimateAdventure():continueGradeQuest();}else{$("battlePrompt").textContent="Game Over / ゲームオーバー";$("battleChoices").innerHTML='<button class="primary-btn" id="battleRetry">Retry Battle</button>';$("battleFeedback").textContent=`You used all 7 lives at question ${battleIndex}.`;$("battleRetry").onclick=()=>startAdventureBattle(Number($("battlePanel").dataset.stage),battleIsBoss);}}
 $("adventureBtn").onclick=openAdventure;$("backAdventureHomeBtn").onclick=()=>{showView("homeView");resetAdventurePanels()};$("closeWorldBtn").onclick=()=>{if(activeWorld==="ultimate"){resetAdventurePanels();renderAdventure();}else{$("stagePanel").classList.add("hidden");$("questSetupPanel").classList.remove("hidden");}};$("cancelQuestSetupBtn").onclick=()=>showView("unitsView");$("startGradeQuestBtn").onclick=continueGradeQuest;$("battleExitBtn").onclick=()=>activeWorld==="ultimate"?openUltimateAdventure():continueGradeQuest();
 renderAdventure();
+  // Show the Adventure coin balance in the top bar
+if($("avatarCoinValue")){
+  $("avatarCoinValue").textContent = adventureCoins;
+}
   // NH Avatar saved data
 const NH_AVATAR_OWNED_KEY = 'nhOwnedCharacters_v1';
 const NH_AVATAR_EQUIPPED_KEY = 'nhEquippedCharacter_v1';
