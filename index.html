@@ -1637,6 +1637,56 @@ function renderCharacterGrid(){
 }
 renderHomeAvatar();
   renderCharacterGrid();
+
+  // NH Avatar Speech Bubble
+const SPEECH_KEY = "nhAvatarSpeech_v1";
+const SPEECH_CHANGED_KEY = "nhAvatarSpeechChanged_v1";
+
+const DEFAULT_SPEECH = "Let's learn English\nand have fun! 😊";
+
+  const avatarSpeech = $("avatarSpeech");
+const savedSpeech = localStorage.getItem(SPEECH_KEY);
+
+avatarSpeech.innerHTML = (savedSpeech || DEFAULT_SPEECH).replace(/\n/g,"<br>");
+  avatarSpeech.onclick = ()=>{
+  const alreadyChanged = localStorage.getItem(SPEECH_CHANGED_KEY) === "yes";
+  const fee = alreadyChanged ? 50 : 100;
+
+  const newSpeech = prompt(
+    `Change your message? 🪙 ${fee} coins\nMaximum 50 characters:`,
+    localStorage.getItem(SPEECH_KEY) || DEFAULT_SPEECH
+  );
+};
+  if(newSpeech === null) return;
+
+if(newSpeech.trim().length === 0){
+  alert("Please enter a message.");
+  return;
+}
+
+if(newSpeech.length > 50){
+  alert("Maximum 50 characters.");
+  return;
+}
+
+  if(adventureCoins < fee){
+  alert(`You need ${fee} coins to change your message.`);
+  return;
+}
+  adventureCoins -= fee;
+saveAdventure();
+
+localStorage.setItem(SPEECH_KEY, newSpeech.trim());
+localStorage.setItem(SPEECH_CHANGED_KEY, "yes");
+
+avatarSpeech.innerHTML = newSpeech.trim().replace(/\n/g,"<br>");
+
+if($("avatarCoinValue")){
+  $("avatarCoinValue").textContent = adventureCoins;
+}
+
+alert(`Message changed! ${fee} coins used.`);
+  };
   
 $("avatarBtn").onclick=()=>{
   $("nhAvatarModal").classList.remove("hidden");
