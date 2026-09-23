@@ -1498,6 +1498,21 @@ function renderInventory(){
         </span>
       `;
 
+   card.style.cursor = "pointer";
+
+card.onclick = ()=>{
+  nhEquippedCharacter = character.id;
+
+  localStorage.setItem(
+    NH_AVATAR_EQUIPPED_KEY,
+    nhEquippedCharacter
+  );
+
+  renderHomeAvatar();
+  renderCharacterGrid();
+  renderInventory();
+};
+      
       grid.appendChild(card);
     });
 }
