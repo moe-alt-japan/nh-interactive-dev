@@ -1677,7 +1677,16 @@ customCard.innerHTML = `
   <span class="nh-character-status">Customize</span>
 `;
 
-grid.appendChild(customCard);
+customCard.onclick = ()=>{
+  const grid = $("nhCharacterGrid");
+
+  grid.innerHTML = `
+    <div class="nh-custom-avatar-preview">
+      <img src="new-custom-avatar-base.png" alt="Custom Avatar">
+    </div>
+  `;
+};
+  grid.appendChild(customCard);
 
 }
 const NH_HAIRS = [
