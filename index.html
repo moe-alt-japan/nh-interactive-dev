@@ -970,6 +970,7 @@ overflow-y:auto;
 </div>
   <div id="nhCharacterGrid" class="nh-character-grid"></div>
 <div id="nhCustomAvatarEditor" class="hidden">
+  <button id="nhCustomAvatarBack" type="button">← Back to Characters</button>
 <div class="nh-custom-editor-layout">
 
   <div class="nh-custom-editor-preview">
@@ -1735,6 +1736,12 @@ customCard.innerHTML = `
 customCard.onclick = ()=>{
   $("nhCharacterGrid").classList.add("hidden");
   $("nhCustomAvatarEditor").classList.remove("hidden");
+};
+
+  $("nhCustomAvatarBack").onclick = ()=>{
+  $("nhCustomAvatarEditor").classList.add("hidden");
+  $("nhCharacterGrid").classList.remove("hidden");
+  renderCharacterGrid();
 };
   grid.appendChild(customCard);
 
