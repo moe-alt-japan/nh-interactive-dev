@@ -335,7 +335,35 @@ overflow-y:auto;
   object-fit:contain;
   display:block;
 }   
+.nh-custom-editor-layout{
+  display:grid;
+  grid-template-columns:300px 1fr;
+  gap:28px;
+  align-items:start;
+  width:100%;
+}
 
+.nh-custom-editor-preview{
+  min-height:440px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--soft);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:16px;
+}
+
+.nh-custom-editor-preview img{
+  width:100%;
+  height:410px;
+  object-fit:contain;
+  display:block;
+}
+
+.nh-custom-editor-options{
+  min-width:0;
+}
 .nh-character-card strong{
   color:var(--text);
   font-size:14px;
@@ -941,7 +969,20 @@ overflow-y:auto;
   <button type="button" class="nh-avatar-tab" data-tab="face">😊 Face</button>
 </div>
   <div id="nhCharacterGrid" class="nh-character-grid"></div>
+<div id="nhCustomAvatarEditor" class="hidden">
+<div class="nh-custom-editor-layout">
+
+  <div class="nh-custom-editor-preview">
+    <img src="new-custom-avatar-base.png" alt="Custom Avatar">
+  </div>
+
+  <div class="nh-custom-editor-options">
+  </div>
+
 </div>
+</div>
+    
+    </div>
     </div>
   </div>
 </div>
@@ -1692,13 +1733,8 @@ customCard.innerHTML = `
 `;
 
 customCard.onclick = ()=>{
-  const grid = $("nhCharacterGrid");
-
-  grid.innerHTML = `
-    <div class="nh-custom-avatar-preview">
-      <img src="new-custom-avatar-base.png" alt="Custom Avatar">
-    </div>
-  `;
+  $("nhCharacterGrid").classList.add("hidden");
+  $("nhCustomAvatarEditor").classList.remove("hidden");
 };
   grid.appendChild(customCard);
 
