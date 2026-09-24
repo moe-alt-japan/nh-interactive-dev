@@ -970,7 +970,7 @@ overflow-y:auto;
 </div>
   <div id="nhCharacterGrid" class="nh-character-grid"></div>
 <div id="nhCustomAvatarEditor" class="hidden">
-  <button id="nhCustomAvatarBack" type="button">← Back to Characters</button>
+
 <div class="nh-custom-editor-layout">
 
   <div class="nh-custom-editor-preview">
@@ -978,14 +978,7 @@ overflow-y:auto;
   </div>
 
 <div id="nhCustomEditorOptions" class="nh-custom-editor-options">
-  <div class="nh-custom-editor-tabs">
-  <button type="button" class="nh-custom-tab active" data-custom-tab="hair">💇 Hair</button>
-  <button type="button" class="nh-custom-tab" data-custom-tab="clothes">👕 Clothes</button>
-  <button type="button" class="nh-custom-tab" data-custom-tab="accessories">🎩 Accessories</button>
-  <button type="button" class="nh-custom-tab" data-custom-tab="eyes">👀 Eyes</button>
-  <button type="button" class="nh-custom-tab" data-custom-tab="mouth">💋 Mouth</button>
-  <button type="button" class="nh-custom-tab" data-custom-tab="face">😊 Face</button>
-</div>
+ 
 
 <div id="nhCustomOptionGrid"></div>
   </div>
@@ -1744,16 +1737,13 @@ customCard.innerHTML = `
 `;
 
 customCard.onclick = ()=>{
-  $("nhCharacterGrid").classList.add("hidden");
-  $("nhCustomAvatarEditor").classList.remove("hidden");
-  renderCustomHairGrid();
+    nhCustomAvatarMode = true;
+    $("nhCharacterGrid").classList.add("hidden");
+    $("nhCustomAvatarEditor").classList.remove("hidden");
+    renderCustomHairGrid();
 };
 
-  $("nhCustomAvatarBack").onclick = ()=>{
-  $("nhCustomAvatarEditor").classList.add("hidden");
-  $("nhCharacterGrid").classList.remove("hidden");
-  renderCharacterGrid();
-};
+ 
   grid.appendChild(customCard);
 
 }
@@ -1861,6 +1851,8 @@ $("avatarBtn").onclick=()=>{
 $("nhAvatarClose").onclick=()=>{
   $("nhAvatarModal").classList.add("hidden");
 };
+  let nhCustomAvatarMode = false;
+  
 document.querySelectorAll(".nh-avatar-tab").forEach(tab=>{
   tab.onclick=()=>{
     document.querySelectorAll(".nh-avatar-tab").forEach(btn=>{
@@ -1869,13 +1861,24 @@ document.querySelectorAll(".nh-avatar-tab").forEach(tab=>{
 
     tab.classList.add("active");
 
-    if(tab.dataset.tab === "character"){
-      renderCharacterGrid();
-    }
+   if(tab.dataset.tab === "character"){
+    nhCustomAvatarMode = false;
+    $("nhCustomAvatarEditor").classList.add("hidden");
+    $("nhCharacterGrid").classList.remove("hidden");
+    renderCharacterGrid();
+}
 
-    if(tab.dataset.tab === "hair"){
-      renderHairGrid();
+   if(tab.dataset.tab === "hair"){
+    if(nhCustomAvatarMode){
+        $("nhCharacterGrid").classList.add("hidden");
+        $("nhCustomAvatarEditor").classList.remove("hidden");
+        renderCustomHairGrid();
+    }else{
+        $("nhCustomAvatarEditor").classList.add("hidden");
+        $("nhCharacterGrid").classList.remove("hidden");
+        renderHairGrid();
     }
+}
   };
 });
 function renderInventory(){
