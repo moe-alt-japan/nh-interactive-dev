@@ -1833,6 +1833,14 @@ card.onclick = ()=>{
   }
 
   hairLayer.src = `${hair.id}.png`;
+  
+  if(hair.id === "hair4"){
+  hairLayer.style.width = "50%";
+  hairLayer.style.left = "25%";
+}else{
+  hairLayer.style.width = "";
+  hairLayer.style.left = "";
+}
 };
     grid.appendChild(card);
   });
