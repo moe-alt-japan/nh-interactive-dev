@@ -1668,7 +1668,33 @@ function renderCharacterGrid(){
     grid.appendChild(card);
   });
 }
-renderHomeAvatar();
+const NH_HAIRS = [
+  {id:"hair1", name:"Hair 1"},
+  {id:"hair2", name:"Hair 2"},
+  {id:"hair3", name:"Hair 3"},
+  {id:"hair4", name:"Hair 4"},
+  {id:"hair5", name:"Hair 5"},
+  {id:"hair6", name:"Hair 6"}
+];
+  function renderHairGrid(){
+  const grid = $("nhCharacterGrid");
+  if(!grid) return;
+
+  grid.innerHTML = "";
+
+  NH_HAIRS.forEach(hair=>{
+    const card = document.createElement("div");
+    card.className = "nh-character-card";
+
+    card.innerHTML = `
+      <img src="${hair.id}.png" alt="${hair.name}">
+      <strong>${hair.name}</strong>
+    `;
+
+    grid.appendChild(card);
+  });
+}
+  renderHomeAvatar();
   renderCharacterGrid();
 
   // NH Avatar Speech Bubble
@@ -1728,7 +1754,23 @@ $("avatarBtn").onclick=()=>{
 $("nhAvatarClose").onclick=()=>{
   $("nhAvatarModal").classList.add("hidden");
 };
+document.querySelectorAll(".nh-avatar-tab").forEach(tab=>{
+  tab.onclick=()=>{
+    document.querySelectorAll(".nh-avatar-tab").forEach(btn=>{
+      btn.classList.remove("active");
+    });
 
+    tab.classList.add("active");
+
+    if(tab.dataset.tab === "character"){
+      renderCharacterGrid();
+    }
+
+    if(tab.dataset.tab === "hair"){
+      renderHairGrid();
+    }
+  };
+});
 function renderInventory(){
   const grid = $("nhInventoryGrid");
   if(!grid) return;
