@@ -1667,6 +1667,18 @@ function renderCharacterGrid(){
     }
     grid.appendChild(card);
   });
+const customCard = document.createElement("div");
+customCard.className = "nh-character-card";
+customCard.style.cursor = "pointer";
+
+customCard.innerHTML = `
+  <img src="new-custom-avatar-base.png" alt="Custom Avatar">
+  <strong>🧪 Custom Avatar</strong>
+  <span class="nh-character-status">Customize</span>
+`;
+
+grid.appendChild(customCard);
+
 }
 const NH_HAIRS = [
   {id:"hair1", name:"Hair 1"},
