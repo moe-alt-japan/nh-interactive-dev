@@ -977,7 +977,17 @@ overflow-y:auto;
     <img src="new-custom-avatar-base.png" alt="Custom Avatar">
   </div>
 
-  <div class="nh-custom-editor-options">
+<div id="nhCustomEditorOptions" class="nh-custom-editor-options">
+  <div class="nh-custom-editor-tabs">
+  <button type="button" class="nh-custom-tab active" data-custom-tab="hair">💇 Hair</button>
+  <button type="button" class="nh-custom-tab" data-custom-tab="clothes">👕 Clothes</button>
+  <button type="button" class="nh-custom-tab" data-custom-tab="accessories">🎩 Accessories</button>
+  <button type="button" class="nh-custom-tab" data-custom-tab="eyes">👀 Eyes</button>
+  <button type="button" class="nh-custom-tab" data-custom-tab="mouth">💋 Mouth</button>
+  <button type="button" class="nh-custom-tab" data-custom-tab="face">😊 Face</button>
+</div>
+
+<div id="nhCustomOptionGrid"></div>
   </div>
 
 </div>
@@ -1736,6 +1746,7 @@ customCard.innerHTML = `
 customCard.onclick = ()=>{
   $("nhCharacterGrid").classList.add("hidden");
   $("nhCustomAvatarEditor").classList.remove("hidden");
+  renderCustomHairGrid();
 };
 
   $("nhCustomAvatarBack").onclick = ()=>{
@@ -1756,6 +1767,24 @@ const NH_HAIRS = [
 ];
   function renderHairGrid(){
   const grid = $("nhCharacterGrid");
+  if(!grid) return;
+
+  grid.innerHTML = "";
+
+  NH_HAIRS.forEach(hair=>{
+    const card = document.createElement("div");
+    card.className = "nh-character-card";
+
+    card.innerHTML = `
+      <img src="${hair.id}.png" alt="${hair.name}">
+      <strong>${hair.name}</strong>
+    `;
+
+    grid.appendChild(card);
+  });
+}
+  function renderCustomHairGrid(){
+ const grid = $("nhCustomOptionGrid");
   if(!grid) return;
 
   grid.innerHTML = "";
