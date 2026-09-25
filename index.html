@@ -372,6 +372,17 @@ overflow-y:auto;
     z-index:2;
 }
 
+    .nh-custom-editor-preview .nh-custom-eyes-layer{
+  position:absolute;
+  width:38%;
+  height:auto;
+  top:30%;
+  left:31%;
+  object-fit:contain;
+  pointer-events:none;
+  z-index:3;
+}
+
 .nh-custom-editor-options{
   min-width:0;
 }
@@ -1788,6 +1799,17 @@ const NH_HAIRS = [
   {id:"hair5", name:"Hair 5"},
   {id:"hair6", name:"Hair 6"}
 ];
+
+  const NH_EYES = [
+  {id:"eyes1", name:"Eyes 1"},
+  {id:"eyes2", name:"Eyes 2"},
+  {id:"eyes3", name:"Eyes 3"},
+  {id:"eyes4", name:"Eyes 4"},
+  {id:"eyes5", name:"Eyes 5"},
+  {id:"eyes6", name:"Eyes 6"},
+  {id:"eyes7", name:"Eyes 7"},
+  {id:"eyes8", name:"Eyes 8"}
+];
   function renderHairGrid(){
   const grid = $("nhCharacterGrid");
   if(!grid) return;
@@ -1842,6 +1864,38 @@ card.onclick = ()=>{
   hairLayer.style.left = "";
 }
 };
+    grid.appendChild(card);
+  });
+}
+
+  function renderCustomEyesGrid(){
+  const grid = $("nhCustomOptionGrid");
+  if(!grid) return;
+
+  grid.innerHTML = "";
+
+  NH_EYES.forEach(eyes=>{
+    const card = document.createElement("div");
+    card.className = "nh-character-card";
+
+    card.innerHTML = `
+      <img src="${eyes.id}.png" alt="${eyes.name}">
+      <strong>${eyes.name}</strong>
+    `;
+    card.onclick = ()=>{
+      const preview = document.querySelector(".nh-custom-editor-preview");
+      if(!preview) return;
+
+      let eyesLayer = preview.querySelector(".nh-custom-eyes-layer");
+
+      if(!eyesLayer){
+        eyesLayer = document.createElement("img");
+        eyesLayer.className = "nh-custom-eyes-layer";
+        preview.appendChild(eyesLayer);
+      }
+
+      eyesLayer.src = `${eyes.id}.png`;
+    };
     grid.appendChild(card);
   });
 }
@@ -1932,6 +1986,17 @@ document.querySelectorAll(".nh-avatar-tab").forEach(tab=>{
         $("nhCharacterGrid").classList.remove("hidden");
         renderHairGrid();
     }
+}
+    if(tab.dataset.tab === "eyes"){
+  if(nhCustomAvatarMode){
+    $("nhCharacterGrid").classList.add("hidden");
+    $("nhCustomAvatarEditor").classList.remove("hidden");
+    renderCustomEyesGrid();
+  }else{
+    $("nhCustomAvatarEditor").classList.add("hidden");
+    $("nhCharacterGrid").classList.remove("hidden");
+    renderEyesGrid();
+  }
 }
   };
 });
