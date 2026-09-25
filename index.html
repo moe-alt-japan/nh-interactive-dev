@@ -382,6 +382,16 @@ overflow-y:auto;
   pointer-events:none;
   z-index:3;
 }
+    .nh-custom-editor-preview .nh-custom-mouth-layer{
+  position:absolute;
+  width:18%;
+  height:auto;
+  top:43%;
+  left:41%;
+  object-fit:contain;
+  pointer-events:none;
+  z-index:4;
+}
 
 .nh-custom-editor-options{
   min-width:0;
@@ -1810,6 +1820,15 @@ const NH_HAIRS = [
   {id:"eyes7", name:"Eyes 7"},
   {id:"eyes8", name:"Eyes 8"}
 ];
+
+  const NH_MOUTHS = [
+  {id:"mouth1", name:"Mouth 1"},
+  {id:"mouth2", name:"Mouth 2"},
+  {id:"mouth3", name:"Mouth 3"},
+  {id:"mouth4", name:"Mouth 4"},
+  {id:"mouth5", name:"Mouth 5"},
+  {id:"mouth6", name:"Mouth 6"}
+];
   function renderHairGrid(){
   const grid = $("nhCharacterGrid");
   if(!grid) return;
@@ -1896,6 +1915,40 @@ card.onclick = ()=>{
 
       eyesLayer.src = `${eyes.id}.png`;
     };
+    grid.appendChild(card);
+  });
+}
+
+  function renderCustomMouthGrid(){
+  const grid = $("nhCustomOptionGrid");
+  if(!grid) return;
+
+  grid.innerHTML = "";
+
+  NH_MOUTHS.forEach(mouth=>{
+    const card = document.createElement("div");
+    card.className = "nh-character-card";
+
+    card.innerHTML = `
+      <img src="${mouth.id}.png" alt="${mouth.name}">
+      <strong>${mouth.name}</strong>
+    `;
+
+    card.onclick = ()=>{
+      const preview = document.querySelector(".nh-custom-editor-preview");
+      if(!preview) return;
+
+      let mouthLayer = preview.querySelector(".nh-custom-mouth-layer");
+
+      if(!mouthLayer){
+        mouthLayer = document.createElement("img");
+        mouthLayer.className = "nh-custom-mouth-layer";
+        preview.appendChild(mouthLayer);
+      }
+
+      mouthLayer.src = `${mouth.id}.png`;
+    };
+
     grid.appendChild(card);
   });
 }
@@ -1996,6 +2049,18 @@ document.querySelectorAll(".nh-avatar-tab").forEach(tab=>{
     $("nhCustomAvatarEditor").classList.add("hidden");
     $("nhCharacterGrid").classList.remove("hidden");
     renderEyesGrid();
+  }
+}
+
+    if(tab.dataset.tab === "mouth"){
+  if(nhCustomAvatarMode){
+    $("nhCharacterGrid").classList.add("hidden");
+    $("nhCustomAvatarEditor").classList.remove("hidden");
+    renderCustomMouthGrid();
+  }else{
+    $("nhCustomAvatarEditor").classList.add("hidden");
+    $("nhCharacterGrid").classList.remove("hidden");
+    renderMouthGrid();
   }
 }
   };
