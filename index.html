@@ -1829,6 +1829,11 @@ const NH_HAIRS = [
   {id:"mouth5", name:"Mouth 5"},
   {id:"mouth6", name:"Mouth 6"}
 ];
+  
+  const NH_CLOTHES = [
+  {id:"clothes1", name:"Clothes 1"}
+    
+];
   function renderHairGrid(){
   const grid = $("nhCharacterGrid");
   if(!grid) return;
@@ -1952,6 +1957,40 @@ card.onclick = ()=>{
     grid.appendChild(card);
   });
 }
+
+  function renderCustomClothesGrid(){
+  const grid = $("nhCustomOptionGrid");
+  if(!grid) return;
+
+  grid.innerHTML = "";
+
+  NH_CLOTHES.forEach(clothes=>{
+    const card = document.createElement("div");
+    card.className = "nh-character-card";
+
+    card.innerHTML = `
+      <img src="${clothes.id}.png" alt="${clothes.name}">
+      <strong>${clothes.name}</strong>
+    `;
+
+    card.onclick = ()=>{
+      const preview = document.querySelector(".nh-custom-editor-preview");
+      if(!preview) return;
+
+      let clothesLayer = preview.querySelector(".nh-custom-clothes-layer");
+
+      if(!clothesLayer){
+        clothesLayer = document.createElement("img");
+        clothesLayer.className = "nh-custom-clothes-layer";
+        preview.appendChild(clothesLayer);
+      }
+
+      clothesLayer.src = `${clothes.id}.png`;
+    };
+
+    grid.appendChild(card);
+  });
+}
   renderHomeAvatar();
   renderCharacterGrid();
 
@@ -2061,6 +2100,17 @@ document.querySelectorAll(".nh-avatar-tab").forEach(tab=>{
     $("nhCustomAvatarEditor").classList.add("hidden");
     $("nhCharacterGrid").classList.remove("hidden");
     renderMouthGrid();
+  }
+}
+
+    if(tab.dataset.tab === "clothes"){
+  if(nhCustomAvatarMode){
+    $("nhCharacterGrid").classList.add("hidden");
+    $("nhCustomAvatarEditor").classList.remove("hidden");
+    renderCustomClothesGrid();
+  }else{
+    $("nhCustomAvatarEditor").classList.add("hidden");
+    $("nhCharacterGrid").classList.remove("hidden");
   }
 }
   };
