@@ -404,7 +404,24 @@ height:42%;
   pointer-events:none;
   z-index:2;
 }
+.nh-arm-mask{
+  position:absolute;
+  width:30px;
+  height:30px;
+  background:red;
+  z-index:3;
+  pointer-events:none;
+}
 
+.nh-arm-mask-left{
+  left:27%;
+  top:57%;
+}
+
+.nh-arm-mask-right{
+  right:27%;
+  top:57%;
+}
 .nh-custom-editor-options{
   min-width:0;
 }
@@ -1041,6 +1058,8 @@ height:42%;
 
   <div class="nh-custom-editor-preview">
     <img src="new-custom-avatar-base.png" alt="Custom Avatar">
+    <div class="nh-arm-mask nh-arm-mask-left"></div>
+<div class="nh-arm-mask nh-arm-mask-right"></div>
   </div>
 
 <div id="nhCustomEditorOptions" class="nh-custom-editor-options">
