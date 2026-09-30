@@ -2227,6 +2227,27 @@ document.querySelectorAll(".nh-avatar-tab").forEach(tab=>{
     $("nhCharacterGrid").classList.remove("hidden");
   }
 }
+if(tab.dataset.tab === "pants"){
+  if(nhCustomAvatarMode){
+    $("nhCharacterGrid").classList.add("hidden");
+    $("nhCustomAvatarEditor").classList.remove("hidden");
+    renderCustomPantsGrid();
+  }else{
+    $("nhCustomAvatarEditor").classList.add("hidden");
+    $("nhCharacterGrid").classList.remove("hidden");
+  }
+}
+
+if(tab.dataset.tab === "shoes"){
+  if(nhCustomAvatarMode){
+    $("nhCharacterGrid").classList.add("hidden");
+    $("nhCustomAvatarEditor").classList.remove("hidden");
+    renderCustomShoesGrid();
+  }else{
+    $("nhCustomAvatarEditor").classList.add("hidden");
+    $("nhCharacterGrid").classList.remove("hidden");
+  }
+}
   };
 });
 function renderInventory(){
