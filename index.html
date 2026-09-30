@@ -689,7 +689,28 @@ height:42%;
 .world-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.world-card{position:relative;border:0;border-radius:25px;padding:26px;text-align:left;min-height:205px;cursor:pointer;color:#172130;box-shadow:var(--shadow);overflow:hidden;transition:.2s}.world-card:hover{transform:translateY(-5px)}.world-card.locked{filter:grayscale(.8);opacity:.65;cursor:not-allowed}.world-card .world-icon{font-size:4rem}.world-card h2{margin:8px 0 5px;font-size:1.8rem}.world-card p{margin:0;max-width:30ch}.world-progress{margin-top:18px;height:10px;background:rgba(255,255,255,.55);border-radius:99px;overflow:hidden}.world-progress i{display:block;height:100%;background:#243b63}.world-school{background:linear-gradient(135deg,#d7edff,#9fd4ff)}.world-forest{background:linear-gradient(135deg,#dbf6d7,#9ae18f)}.world-castle{background:linear-gradient(135deg,#ffe0e5,#ff9fb0)}
 .stage-panel,.battle-panel{margin-top:24px;background:var(--card);border:1px solid var(--line);border-radius:25px;padding:26px;box-shadow:var(--shadow)}.stage-panel-head{display:flex;justify-content:space-between;gap:20px;align-items:start}.stage-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}.stage-card{border:2px solid var(--line);background:var(--bg);color:var(--text);border-radius:20px;padding:22px 12px;text-align:center;cursor:pointer}.stage-card.locked{opacity:.5;cursor:not-allowed}.stage-card.complete{border-color:#54bd76}.stage-icon{font-size:2.4rem}.stage-card h3{margin:8px 0 3px}.boss-stage{background:linear-gradient(135deg,#fff2c7,#ffd36e);color:#342710}
 .battle-panel{text-align:center;max-width:850px;margin:24px auto}.boss-art{font-size:6rem;animation:bossFloat 1.8s ease-in-out infinite}.battle-bars{display:grid;grid-template-columns:1fr 1fr;gap:18px;text-align:left;margin:20px 0}.hp-track{height:16px;background:#e1e7ed;border-radius:99px;overflow:hidden}.hp-track i{display:block;height:100%;width:100%;background:#55c778;transition:.35s}.hp-track.enemy i{background:#ef6262}.battle-hint{color:var(--muted)}@keyframes bossFloat{50%{transform:translateY(-8px)}}
+/* ===== ADVENTURE BATTLE FANTASY BACKGROUND ===== */
 
+#adventureView:has(.battle-panel:not(.hidden)) {
+  background:
+    linear-gradient(rgba(5, 8, 25, 0.20), rgba(12, 5, 25, 0.32)),
+    url("adventure-battle-bg.png") center center / cover no-repeat fixed;
+  min-height: 100vh;
+}
+
+#adventureView:has(.battle-panel:not(.hidden)) .battle-panel {
+  background: rgba(10, 15, 35, 0.76);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(180, 150, 255, 0.35);
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.45),
+    0 0 35px rgba(125, 70, 255, .18);
+  color: #fff;
+}
+
+#adventureView:has(.battle-panel:not(.hidden)) .battle-hint {
+  color: #dcd5ff;
+}
 .quest-setup{margin-top:24px;background:var(--card);border:1px solid var(--line);border-radius:25px;padding:26px;box-shadow:var(--shadow)}
 .unit-select-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:20px 0}.unit-check{display:flex;align-items:center;gap:10px;background:var(--bg);border:2px solid var(--line);border-radius:16px;padding:14px;cursor:pointer;font-weight:800}.unit-check:has(input:checked){border-color:var(--brand);background:var(--soft)}.unit-check input{width:20px;height:20px}.quest-summary{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0}.quest-summary span{background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-weight:800}.grade-adventure-card{grid-column:1/-1;background:linear-gradient(135deg,#6c5ce7,#35a7ff);color:#fff;border:0}.grade-adventure-card p{color:#eef6ff}.battle-status{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;font-weight:900;margin:10px 0 18px}.life-display{letter-spacing:3px}.question-count{color:var(--brand)}
 @media(max-width:900px){.world-grid{grid-template-columns:1fr}.stage-grid{grid-template-columns:1fr 1fr}.adventure-hero{align-items:flex-start}}@media(max-width:560px){.stage-grid,.battle-bars{grid-template-columns:1fr}.dashboard-actions{align-items:stretch}.dashboard-actions button{width:100%}}
