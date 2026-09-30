@@ -404,7 +404,30 @@ height:42%;
   pointer-events:none;
   z-index:2;
 }
-    .nh-custom-base{
+  /* PANTS LAYER */
+.nh-custom-editor-preview .nh-custom-pants-layer{
+  position:absolute;
+  width:54%;
+  height:42%;
+  top:55%;
+  left:23%;
+  object-fit:contain;
+  pointer-events:none;
+  z-index:3;
+}
+
+/* SHOES LAYER */
+.nh-custom-editor-preview .nh-custom-shoes-layer{
+  position:absolute;
+  width:54%;
+  height:20%;
+  top:78%;
+  left:23%;
+  object-fit:contain;
+  pointer-events:none;
+  z-index:4;
+} 
+ .nh-custom-base{
   position:relative;
   z-index:0;
 }
@@ -2100,6 +2123,82 @@ card.onclick = ()=>{
       }
 
       clothesLayer.src = `${clothes.id}.png`;
+    };
+
+    grid.appendChild(card);
+  });
+}
+  
+ function renderCustomPantsGrid(){
+  const grid = $("nhCustomOptionGrid");
+  if(!grid) return;
+
+  grid.innerHTML = "";
+
+  const pants = [
+    {id:"pants1", name:"Pants 1"}
+  ];
+
+  pants.forEach(item=>{
+    const card = document.createElement("div");
+    card.className = "nh-character-card";
+
+    card.innerHTML = `
+      <img src="${item.id}.png" alt="${item.name}">
+      <strong>${item.name}</strong>
+    `;
+
+    card.onclick = ()=>{
+      const preview = document.querySelector(".nh-custom-editor-preview");
+      if(!preview) return;
+
+      let pantsLayer = preview.querySelector(".nh-custom-pants-layer");
+
+      if(!pantsLayer){
+        pantsLayer = document.createElement("img");
+        pantsLayer.className = "nh-custom-pants-layer";
+        preview.appendChild(pantsLayer);
+      }
+
+      pantsLayer.src = `${item.id}.png`;
+    };
+
+    grid.appendChild(card);
+  });
+}
+  
+  function renderCustomShoesGrid(){
+  const grid = $("nhCustomOptionGrid");
+  if(!grid) return;
+
+  grid.innerHTML = "";
+
+  const shoes = [
+    {id:"shoes1", name:"Shoes 1"}
+  ];
+
+  shoes.forEach(item=>{
+    const card = document.createElement("div");
+    card.className = "nh-character-card";
+
+    card.innerHTML = `
+      <img src="${item.id}.png" alt="${item.name}">
+      <strong>${item.name}</strong>
+    `;
+
+    card.onclick = ()=>{
+      const preview = document.querySelector(".nh-custom-editor-preview");
+      if(!preview) return;
+
+      let shoesLayer = preview.querySelector(".nh-custom-shoes-layer");
+
+      if(!shoesLayer){
+        shoesLayer = document.createElement("img");
+        shoesLayer.className = "nh-custom-shoes-layer";
+        preview.appendChild(shoesLayer);
+      }
+
+      shoesLayer.src = `${item.id}.png`;
     };
 
     grid.appendChild(card);
