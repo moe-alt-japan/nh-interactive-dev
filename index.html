@@ -710,6 +710,43 @@ height:42%;
 
 #adventureView:has(.battle-panel:not(.hidden)) .battle-hint {
   color: #dcd5ff;
+  /* ===== ADVENTURE BACKGROUND FRAME ===== */
+
+#adventureView:has(.battle-panel:not(.hidden)) {
+  border: 3px solid #7c5cff;
+  border-radius: 28px;
+  overflow: hidden;
+
+  box-shadow:
+    0 0 0 5px rgba(124, 92, 255, 0.12),
+    0 15px 45px rgba(35, 20, 90, 0.30);
+}
+
+/* ===== ADVENTURE TITLE: WHITE TEXT ===== */
+
+#adventureView:has(.battle-panel:not(.hidden)) .adventure-hero h1 {
+  color: #ffffff !important;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.85);
+}
+
+#adventureView:has(.battle-panel:not(.hidden)) .adventure-hero p {
+  color: #ffffff !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+}
+
+/* ===== SMALL ENGLISH ADVENTURE LABEL ===== */
+
+#adventureView:has(.battle-panel:not(.hidden)) .adventure-hero .eyebrow {
+  color: #d5c4ff !important;
+}
+
+/* ===== RESPONSIVE ROUNDED CORNERS ===== */
+
+@media (max-width: 600px) {
+  #adventureView:has(.battle-panel:not(.hidden)) {
+    border-radius: 18px;
+    border-width: 2px;
+  }
 }
 .quest-setup{margin-top:24px;background:var(--card);border:1px solid var(--line);border-radius:25px;padding:26px;box-shadow:var(--shadow)}
 .unit-select-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:20px 0}.unit-check{display:flex;align-items:center;gap:10px;background:var(--bg);border:2px solid var(--line);border-radius:16px;padding:14px;cursor:pointer;font-weight:800}.unit-check:has(input:checked){border-color:var(--brand);background:var(--soft)}.unit-check input{width:20px;height:20px}.quest-summary{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0}.quest-summary span{background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-weight:800}.grade-adventure-card{grid-column:1/-1;background:linear-gradient(135deg,#6c5ce7,#35a7ff);color:#fff;border:0}.grade-adventure-card p{color:#eef6ff}.battle-status{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;font-weight:900;margin:10px 0 18px}.life-display{letter-spacing:3px}.question-count{color:var(--brand)}
