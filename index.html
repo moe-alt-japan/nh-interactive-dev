@@ -1828,11 +1828,15 @@ if($("avatarCoinValue")){
 const NH_AVATAR_OWNED_KEY = 'nhOwnedCharacters_v1';
 const NH_AVATAR_EQUIPPED_KEY = 'nhEquippedCharacter_v1';
   
-  const NH_HAIR_OWNED_KEY = 'nhOwnedHairs_v1';
+const NH_HAIR_OWNED_KEY = 'nhOwnedHairs_v1';
+const NH_HAIR_EQUIPPED_KEY = 'nhEquippedHair_v1';
 
 let nhOwnedHairs = JSON.parse(
   localStorage.getItem(NH_HAIR_OWNED_KEY) || '["hair1"]'
 );
+
+let nhEquippedHair =
+  localStorage.getItem(NH_HAIR_EQUIPPED_KEY) || "hair1";
 
 let nhOwnedCharacters = JSON.parse(
   localStorage.getItem(NH_AVATAR_OWNED_KEY) ||
@@ -1937,12 +1941,37 @@ customCard.innerHTML = `
 `;
 
 customCard.onclick = ()=>{
-    nhCustomAvatarMode = true;
-    $("nhCharacterGrid").classList.add("hidden");
-    $("nhCustomAvatarEditor").classList.remove("hidden");
-    renderCustomHairGrid();
-};
+  nhCustomAvatarMode = true;
 
+  $("nhCharacterGrid").classList.add("hidden");
+  $("nhCustomAvatarEditor").classList.remove("hidden");
+
+  // Restore saved equipped hair
+  const preview = document.querySelector(".nh-custom-editor-preview");
+
+  if(preview && nhEquippedHair){
+    let hairLayer = preview.querySelector(".nh-custom-hair-layer");
+
+    if(!hairLayer){
+      hairLayer = document.createElement("img");
+      hairLayer.className = "nh-custom-hair-layer";
+      preview.appendChild(hairLayer);
+    }
+
+    hairLayer.src = `${nhEquippedHair}.png`;
+
+    // Keep Hair 4's special positioning
+    if(nhEquippedHair === "hair4"){
+      hairLayer.style.width = "50%";
+      hairLayer.style.left = "25%";
+    }else{
+      hairLayer.style.width = "";
+      hairLayer.style.left = "";
+    }
+  }
+
+  renderCustomHairGrid();
+};
  
   grid.appendChild(customCard);
 
@@ -2088,7 +2117,11 @@ card.onclick = ()=>{
   }
 
   hairLayer.src = `${hair.id}.png`;
-
+  
+// Save equipped hair
+nhEquippedHair = hair.id;
+localStorage.setItem(NH_HAIR_EQUIPPED_KEY, nhEquippedHair);
+  
   if(hair.id === "hair4"){
     hairLayer.style.width = "50%";
     hairLayer.style.left = "25%";
