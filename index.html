@@ -1840,6 +1840,16 @@ let nhEquippedHair =
 
 let nhOwnedCharacters = JSON.parse(
   localStorage.getItem(NH_AVATAR_OWNED_KEY) ||
+  
+  const NH_EYES_OWNED_KEY = 'nhOwnedEyes_v1';
+const NH_EYES_EQUIPPED_KEY = 'nhEquippedEyes_v1';
+
+let nhOwnedEyes = JSON.parse(
+  localStorage.getItem(NH_EYES_OWNED_KEY) || '["eyes1"]'
+);
+
+let nhEquippedEyes =
+  localStorage.getItem(NH_EYES_EQUIPPED_KEY) || "eyes1";
   '["boy free character","girl free character"]'
 );
 
@@ -1969,7 +1979,21 @@ customCard.onclick = ()=>{
       hairLayer.style.left = "";
     }
   }
+// Restore saved equipped eyes
+const eyesPreview = document.querySelector(".nh-custom-editor-preview");
 
+if(eyesPreview && nhEquippedEyes){
+  let eyesLayer = eyesPreview.querySelector(".nh-custom-eyes-layer");
+
+  if(!eyesLayer){
+    eyesLayer = document.createElement("img");
+    eyesLayer.className = "nh-custom-eyes-layer";
+    eyesPreview.appendChild(eyesLayer);
+  }
+
+  eyesLayer.src = `${nhEquippedEyes}.png`;
+}
+  
   renderCustomHairGrid();
 };
  
@@ -1985,15 +2009,15 @@ const NH_HAIRS = [
   {id:"hair6", name:"Hair 6", price:350}
 ];
 
-  const NH_EYES = [
-  {id:"eyes1", name:"Eyes 1"},
-  {id:"eyes2", name:"Eyes 2"},
-  {id:"eyes3", name:"Eyes 3"},
-  {id:"eyes4", name:"Eyes 4"},
-  {id:"eyes5", name:"Eyes 5"},
-  {id:"eyes6", name:"Eyes 6"},
-  {id:"eyes7", name:"Eyes 7"},
-  {id:"eyes8", name:"Eyes 8"}
+const NH_EYES = [
+  {id:"eyes1", name:"Eyes 1", price:0},
+  {id:"eyes2", name:"Eyes 2", price:100},
+  {id:"eyes3", name:"Eyes 3", price:200},
+  {id:"eyes4", name:"Eyes 4", price:200},
+  {id:"eyes5", name:"Eyes 5", price:300},
+  {id:"eyes6", name:"Eyes 6", price:300},
+  {id:"eyes7", name:"Eyes 7", price:350},
+  {id:"eyes8", name:"Eyes 8", price:350}
 ];
 
   const NH_MOUTHS = [
@@ -2140,28 +2164,82 @@ localStorage.setItem(NH_HAIR_EQUIPPED_KEY, nhEquippedHair);
 
   grid.innerHTML = "";
 
-  NH_EYES.forEach(eyes=>{
-    const card = document.createElement("div");
-    card.className = "nh-character-card";
+NH_EYES.forEach(eyes=>{
+  const card = document.createElement("div");
+  card.className = "nh-character-card";
 
-    card.innerHTML = `
-      <img src="${eyes.id}.png" alt="${eyes.name}">
-      <strong>${eyes.name}</strong>
-    `;
-    card.onclick = ()=>{
-      const preview = document.querySelector(".nh-custom-editor-preview");
-      if(!preview) return;
+  const owned =
+    eyes.price === 0 ||
+    nhOwnedEyes.includes(eyes.id);
 
-      let eyesLayer = preview.querySelector(".nh-custom-eyes-layer");
+  card.innerHTML = `
+    <img src="${eyes.id}.png" alt="${eyes.name}">
+    <strong>${eyes.name}</strong>
+    <span class="nh-character-status">
+      ${owned ? "✓ Owned" : "🪙 " + eyes.price}
+    </span>
+  `;
+  card.onclick = ()=>{
 
-      if(!eyesLayer){
-        eyesLayer = document.createElement("img");
-        eyesLayer.className = "nh-custom-eyes-layer";
-        preview.appendChild(eyesLayer);
-      }
+  // BUY EYES IF NOT OWNED
+  if(!owned){
 
-      eyesLayer.src = `${eyes.id}.png`;
-    };
+    if(adventureCoins < eyes.price){
+      alert(`You need ${eyes.price} coins to buy ${eyes.name}.`);
+      return;
+    }
+
+    const buy = confirm(
+      `Buy ${eyes.name} for ${eyes.price} coins?`
+    );
+
+    if(!buy) return;
+
+    adventureCoins -= eyes.price;
+    nhOwnedEyes.push(eyes.id);
+
+    saveAdventure();
+
+    localStorage.setItem(
+      NH_EYES_OWNED_KEY,
+      JSON.stringify(nhOwnedEyes)
+    );
+
+    if($("avatarCoinValue")){
+      $("avatarCoinValue").textContent = adventureCoins;
+    }
+
+    alert(`${eyes.name} purchased!`);
+
+    renderCustomEyesGrid();
+    return;
+  }
+
+  // EQUIP OWNED EYES
+  const preview =
+    document.querySelector(".nh-custom-editor-preview");
+
+  if(!preview) return;
+
+  let eyesLayer =
+    preview.querySelector(".nh-custom-eyes-layer");
+
+  if(!eyesLayer){
+    eyesLayer = document.createElement("img");
+    eyesLayer.className = "nh-custom-eyes-layer";
+    preview.appendChild(eyesLayer);
+  }
+
+  eyesLayer.src = `${eyes.id}.png`;
+
+  // Save equipped eyes
+  nhEquippedEyes = eyes.id;
+  localStorage.setItem(
+    NH_EYES_EQUIPPED_KEY,
+    nhEquippedEyes
+  );
+};
+
     grid.appendChild(card);
   });
 }
