@@ -1827,6 +1827,12 @@ if($("avatarCoinValue")){
   // NH Avatar saved data
 const NH_AVATAR_OWNED_KEY = 'nhOwnedCharacters_v1';
 const NH_AVATAR_EQUIPPED_KEY = 'nhEquippedCharacter_v1';
+  
+  const NH_HAIR_OWNED_KEY = 'nhOwnedHairs_v1';
+
+let nhOwnedHairs = JSON.parse(
+  localStorage.getItem(NH_HAIR_OWNED_KEY) || '["hair1"]'
+);
 
 let nhOwnedCharacters = JSON.parse(
   localStorage.getItem(NH_AVATAR_OWNED_KEY) ||
@@ -1942,12 +1948,12 @@ customCard.onclick = ()=>{
 
 }
 const NH_HAIRS = [
-  {id:"hair1", name:"Hair 1"},
-  {id:"hair2", name:"Hair 2"},
-  {id:"hair3", name:"Hair 3"},
-  {id:"hair4", name:"Hair 4"},
-  {id:"hair5", name:"Hair 5"},
-  {id:"hair6", name:"Hair 6"}
+  {id:"hair1", name:"Hair 1", price:0},
+  {id:"hair2", name:"Hair 2", price:150},
+  {id:"hair3", name:"Hair 3", price:200},
+  {id:"hair4", name:"Hair 4", price:250},
+  {id:"hair5", name:"Hair 5", price:300},
+  {id:"hair6", name:"Hair 6", price:350}
 ];
 
   const NH_EYES = [
@@ -2019,15 +2025,61 @@ const NH_HAIRS = [
     const card = document.createElement("div");
     card.className = "nh-character-card";
 
-    card.innerHTML = `
-      <img src="${hair.id}.png" alt="${hair.name}">
-      <strong>${hair.name}</strong>
-    `;
+   const owned =
+  hair.price === 0 ||
+  nhOwnedHairs.includes(hair.id);
+
+card.innerHTML = `
+  <img src="${hair.id}.png" alt="${hair.name}">
+  <strong>${hair.name}</strong>
+  <span class="nh-character-status">
+    ${owned ? "✓ Owned" : "🪙 " + hair.price}
+  </span>
+`;
 card.onclick = ()=>{
-  const preview = document.querySelector(".nh-custom-editor-preview");
+
+  // BUY HAIR IF NOT OWNED
+  if(!owned){
+
+    if(adventureCoins < hair.price){
+      alert(`You need ${hair.price} coins to buy ${hair.name}.`);
+      return;
+    }
+
+    const buy = confirm(
+      `Buy ${hair.name} for ${hair.price} coins?`
+    );
+
+    if(!buy) return;
+
+    adventureCoins -= hair.price;
+    nhOwnedHairs.push(hair.id);
+
+    saveAdventure();
+
+    localStorage.setItem(
+      NH_HAIR_OWNED_KEY,
+      JSON.stringify(nhOwnedHairs)
+    );
+
+    if($("avatarCoinValue")){
+      $("avatarCoinValue").textContent = adventureCoins;
+    }
+
+    alert(`${hair.name} purchased!`);
+
+    renderCustomHairGrid();
+    return;
+  }
+
+  // EQUIP OWNED HAIR
+  const preview =
+    document.querySelector(".nh-custom-editor-preview");
+
   if(!preview) return;
 
-  let hairLayer = preview.querySelector(".nh-custom-hair-layer");
+  let hairLayer =
+    preview.querySelector(".nh-custom-hair-layer");
 
   if(!hairLayer){
     hairLayer = document.createElement("img");
@@ -2036,14 +2088,14 @@ card.onclick = ()=>{
   }
 
   hairLayer.src = `${hair.id}.png`;
-  
+
   if(hair.id === "hair4"){
-  hairLayer.style.width = "50%";
-  hairLayer.style.left = "25%";
-}else{
-  hairLayer.style.width = "";
-  hairLayer.style.left = "";
-}
+    hairLayer.style.width = "50%";
+    hairLayer.style.left = "25%";
+  }else{
+    hairLayer.style.width = "";
+    hairLayer.style.left = "";
+  }
 };
     grid.appendChild(card);
   });
