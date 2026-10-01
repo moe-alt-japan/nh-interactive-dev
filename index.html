@@ -1840,8 +1840,10 @@ let nhEquippedHair =
 
 let nhOwnedCharacters = JSON.parse(
   localStorage.getItem(NH_AVATAR_OWNED_KEY) ||
-  
-  const NH_EYES_OWNED_KEY = 'nhOwnedEyes_v1';
+  '["boy free character","girl free character"]'
+);
+
+const NH_EYES_OWNED_KEY = 'nhOwnedEyes_v1';
 const NH_EYES_EQUIPPED_KEY = 'nhEquippedEyes_v1';
 
 let nhOwnedEyes = JSON.parse(
@@ -1850,8 +1852,6 @@ let nhOwnedEyes = JSON.parse(
 
 let nhEquippedEyes =
   localStorage.getItem(NH_EYES_EQUIPPED_KEY) || "eyes1";
-  '["boy free character","girl free character"]'
-);
 
 let nhEquippedCharacter =
   localStorage.getItem(NH_AVATAR_EQUIPPED_KEY) ||
